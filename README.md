@@ -12,6 +12,13 @@ Environment prototype that can be used for the group exercice
 * Use of Twig and container dependencies injection (DI))
 * PHP Data Objects (PDO) connecting to PostgreSQL
 
+# Contributors
+
+- Louis Cantinieaux
+- Mathieu Jasselette
+- Vincent Chilot
+- Joé Michel
+
 ### Architecture
 
 ├── app
