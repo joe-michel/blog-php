@@ -1,6 +1,6 @@
 <?php
 
-//CONTAINER DI:Create  new container service 
+//CONTAINER DI:Create  new container service
 // Get the container
 $container = $app->getContainer();
 // Twig view dependency
