@@ -13,6 +13,10 @@ use \Psr\Http\Message\ResponseInterface;
 $app->get('/',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
   return $this->view->render($response, 'home.twig');
 })->setName('home');
+
+$app->get('/login',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
+  return $this->view->render($response, 'login.twig');
+})->setName('login');
 // route for about +DB content
 $app->get('/about',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
   $sth = $this->db->prepare("SELECT id, name, profile FROM about");
