@@ -17,6 +17,11 @@ $app->get('/',function(ServerRequestInterface $request,ResponseInterface $respon
 $app->get('/login',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
   return $this->view->render($response, 'login.twig');
 })->setName('login');
+
+$app->get('/signup',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
+  return $this->view->render($response, 'signup.twig');
+})->setName('signup');
+
 // route for about +DB content
 $app->get('/about',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
   $sth = $this->db->prepare("SELECT id, name, profile FROM about");
@@ -25,10 +30,12 @@ $app->get('/about',function(ServerRequestInterface $request,ResponseInterface $r
   //return $this->response->withJson($about);
   return $this->view->render($response, 'about.twig', ['curl_result' => $about] );
 })->setName('about');
+
 // route for contact
 $app->get('/contact',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
   return $this->view->render($response, 'contact.twig');
 })->setName('contact');
+
 // Post Requests
 $app->post('/confirm',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
   //we put the content of the form in an array and then in a variable
