@@ -24,7 +24,7 @@ $app->get('/signup',function(ServerRequestInterface $request,ResponseInterface $
 
 $app->post('/signup',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
   $username = $_POST['username'];
-  $password = $_POST['password'];
+  $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
   $req = $this->db->prepare('INSERT INTO users VALUES (DEFAULT, :username, :password)');
   $req->execute(array(
     'username' => $username,
