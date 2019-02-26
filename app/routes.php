@@ -19,10 +19,11 @@ $app->get('/login',function(ServerRequestInterface $request,ResponseInterface $r
 })->setName('login');
 
 $app->post('/login', function(ServerRequestInterface $request,ResponseInterface $response, $args) {
-  $password = $_POST['password'];
-  $username = $_POST['username'];
-  //$id = $_POST['id'];
-  $req = $this->db->prepare ('SELECT id,password FROM users WHERE username= :username');
+  $password = $request->getParam('password');
+  $username = $request->getParam('username');
+
+  $req = $this->db->prepare ('SELECT password, id FROM users WHERE username= :username');
+
   $req->execute(array(
     'username' => $username));
   $fetch = $req->fetch();
@@ -48,8 +49,8 @@ $app->get('/signup',function(ServerRequestInterface $request,ResponseInterface $
 
 // Post method for signup and insertion into the DB with password hash
 $app->post('/signup',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
-  $username = $_POST['username'];
-  $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+  $username = $request->getParam('username');
+  $password = password_hash($request->getParam('password'), PASSWORD_BCRYPT);
   $req = $this->db->prepare('INSERT INTO users VALUES (DEFAULT, :username, :password)');
   $req->execute(array(
     'username' => $username,
