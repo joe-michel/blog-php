@@ -22,6 +22,7 @@ $app->get('/signup',function(ServerRequestInterface $request,ResponseInterface $
   return $this->view->render($response, 'signup.twig');
 })->setName('signup');
 
+// Post method for signup and insertion into the DB with password hash
 $app->post('/signup',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
   $username = $_POST['username'];
   $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
