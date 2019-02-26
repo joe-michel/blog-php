@@ -22,7 +22,7 @@ $app->post('/login', function(ServerRequestInterface $request,ResponseInterface 
   $password = $_POST['password'];
   $username = $_POST['username'];
   //$id = $_POST['id'];
-  $req = $this->db->prepare ('SELECT password FROM users WHERE username= :username');
+  $req = $this->db->prepare ('SELECT id,password FROM users WHERE username= :username');
   $req->execute(array(
     'username' => $username));
   $fetch = $req->fetch();
@@ -32,7 +32,7 @@ $app->post('/login', function(ServerRequestInterface $request,ResponseInterface 
   } else {
     if ($isPasswordOk) {
       session_start();
-      //$_SESSION['id'] = $fetch['id'];
+      $_SESSION['id'] = $fetch['id'];
       $_SESSION['username'] = $username;
       echo "Vous êtes un Beau Gosse";
     } else {
