@@ -18,6 +18,30 @@ $app->get('/login',function(ServerRequestInterface $request,ResponseInterface $r
   return $this->view->render($response, 'login.twig');
 })->setName('login');
 
+$app->post('/login', function(ServerRequestInterface $request,ResponseInterface $response, $args) {
+  $password = $_POST['password'];
+  $username = $_POST['username'];
+  //$id = $_POST['id'];
+  $req = $this->db->prepare ('SELECT password FROM users WHERE username= :username');
+  $req->execute(array(
+    'username' => $username));
+  $fetch = $req->fetch();
+  $isPasswordOk = password_verify($password, $fetch['password']);
+  if (!$isPasswordOk) {
+    echo "Nique ta grand-mère en jet-ski";
+  } else {
+    if ($isPasswordOk) {
+      session_start();
+      //$_SESSION['id'] = $fetch['id'];
+      $_SESSION['username'] = $username;
+      echo "Vous êtes un Beau Gosse";
+    } else {
+      echo "Mange tes morts";
+    }
+  }
+  return $this->view->render($response, 'home.twig');
+})->setName('login');
+
 $app->get('/signup',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
   return $this->view->render($response, 'signup.twig');
 })->setName('signup');
