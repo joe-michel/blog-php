@@ -19,6 +19,11 @@ $app->get('/login',function(ServerRequestInterface $request,ResponseInterface $r
 })->setName('login');
 
 $app->get('/signup',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
+  $req = $this->db->prepare('INSERT INTO username, password) VALUES (:username, :password)');
+  $req->execute(array(
+    'username' => $username,
+    'password' => $password));
+
   return $this->view->render($response, 'signup.twig');
 })->setName('signup');
 
