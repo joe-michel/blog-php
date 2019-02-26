@@ -110,6 +110,10 @@ Templates for each page + general layout
 
 If you add namespaces in vendor/autoload.php use: *composer dump-autoload*
 
+You will need to add PDO for Postgress:
+
+*apt-get install php-pgsql*
+
 **You will need a PostgreSQL running to access the DB using PDO**
 
 Use this docker file: [docker-compose-postgres](https://github.com/becodeorg/LIE-Jepsen-1.9/tree/master/02-the-hill/docker-compose-postgres)
