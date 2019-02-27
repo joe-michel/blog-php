@@ -22,7 +22,7 @@ $app->post('/login', function(ServerRequestInterface $request,ResponseInterface 
   $password = $request->getParam('password');
   $username = $request->getParam('username');
 
-  $req = $this->db->prepare ('SELECT id, password FROM users WHERE username = :username');
+  $req = $this->db->prepare ('SELECT id, password, permissionid FROM users WHERE username = :username');
 
   $req->execute(array(
     'username' => $username));
@@ -34,9 +34,10 @@ $app->post('/login', function(ServerRequestInterface $request,ResponseInterface 
   } else {
       session_start();
       $_SESSION['id'] = $fetch['id'];
+      $_SESSION['permission'] = $fetch['permissionid'];
       $_SESSION['username'] = $username;
       echo "Vous êtes un Beau Gosse";
-      return $this->view->render($response, 'home.twig');
+      return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION]);
     }
 })->setName('login');
 
