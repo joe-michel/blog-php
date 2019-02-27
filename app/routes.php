@@ -22,7 +22,7 @@ $app->post('/login', function(ServerRequestInterface $request,ResponseInterface 
   $password = $request->getParam('password');
   $username = $request->getParam('username');
 
-  $req = $this->db->prepare ('SELECT password, id FROM users WHERE username= :username');
+  $req = $this->db->prepare ('SELECT id, password FROM users WHERE username = :username');
 
   $req->execute(array(
     'username' => $username));
@@ -30,17 +30,14 @@ $app->post('/login', function(ServerRequestInterface $request,ResponseInterface 
   $isPasswordOk = password_verify($password, $fetch['password']);
   if (!$isPasswordOk) {
     echo "Nique ta grand-mère en jet-ski";
+    return $this->view->render($response, 'login.twig');
   } else {
-    if ($isPasswordOk) {
       session_start();
       $_SESSION['id'] = $fetch['id'];
       $_SESSION['username'] = $username;
       echo "Vous êtes un Beau Gosse";
-    } else {
-      echo "Mange tes morts";
+      return $this->view->render($response, 'home.twig');
     }
-  }
-  return $this->view->render($response, 'home.twig');
 })->setName('login');
 
 $app->get('/signup',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
@@ -51,11 +48,11 @@ $app->get('/signup',function(ServerRequestInterface $request,ResponseInterface $
 $app->post('/signup',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
   $username = $request->getParam('username');
   $password = password_hash($request->getParam('password'), PASSWORD_BCRYPT);
-  $req = $this->db->prepare('INSERT INTO users VALUES (DEFAULT, :username, :password)');
+  $req = $this->db->prepare('INSERT INTO users VALUES (DEFAULT, :username, :password, 0)');
   $req->execute(array(
     'username' => $username,
     'password' => $password));
-  return $this->view->render($response, 'signup.twig');
+  return $this->view->render($response, 'home.twig');
 })->setName('signup');
 
 // route for about +DB content
