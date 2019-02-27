@@ -1,0 +1,8 @@
+{% extends 'home.twig' %}
+
+{% block content %}
+<span class="navbar-text">
+{{curl_result.username}} ({{curl_result.permission}})
+</span>
+<form method="post" action="disconnect"><button>disconnect</button></form>
+{% endblock %}

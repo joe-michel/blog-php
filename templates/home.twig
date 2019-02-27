@@ -1,54 +1,43 @@
-{% extends 'layout.twig' %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="{{ description }}">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{{ page.title }}</title>
 
-{% block content %}
+        {# Google fonts:Open Sans #}
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
 
-  {{ curl_result.username }} ({{curl_result.permission}})
+        {# bootstrap  #}
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Innovation blog</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only"></span></a>
-        </li>
-        <li class="nav-item">
-          <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Sign in
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <form method="post" action="">
-                <p>Enter your userName</p>
-                <input type="text" name="username"></input>
-                <p>Enter your password</p>
-                <input type="password" name="password"></input>
-                <p><input type="submit" name="log"></input></p>
-              </form>
-            </div>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Pricing</a>
-        </li>
-      </ul>
-      <span class="navbar-text">
-        Navbar text with an inline element
-      </span>
-    </div>
-  </nav>
+        {# Our customized css #}
+        <link rel="stylesheet" href="{{ base_url() }}/css/style.css">
+    </head>
+    <body>
 
-  <h2>Welcome to this website</h2>
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris luctus sit amet diam sit amet accumsan. Cras vel nulla vehicula, ultricies sapien at, interdum purus. Curabitur nec turpis non lorem vestibulum auctor. Aenean interdum, eros sit amet gravida scelerisque, nisl purus venenatis sapien, et cursus ante augue at enim. Nunc feugiat scelerisque mollis. Cras pulvinar tellus nec ex malesuada lacinia. Sed et felis sem. Proin id lacus quis tellus feugiat aliquam.
-  </p>
-  <p>
-      Donec nisi felis, sollicitudin non sodales sed, posuere porttitor magna. Ut malesuada luctus rutrum. In et ligula in metus bibendum luctus. Maecenas et libero in enim mollis consectetur at nec nibh. Proin lacinia mattis odio, elementum varius nunc egestas sed. Etiam egestas condimentum efficitur. Pellentesque felis justo, scelerisque vulputate vestibulum ut, scelerisque a augue. Nulla sem justo, pretium at ultricies sed, consectetur sit amet sem. Integer sodales faucibus egestas. Proin in felis nec nunc blandit ultricies a eu dui. Fusce leo enim, tincidunt vel consectetur id, sagittis id ex. Duis interdum consequat quam hendrerit rutrum. Ut feugiat suscipit tortor, in suscipit elit tincidunt ac.
-  </p>
-  <p>
-      Nulla erat dui, aliquet sed quam vel, tempus porta nunc. Mauris sit amet ex vitae nulla tempor mattis. Nulla et bibendum ex. In viverra arcu vitae nisi faucibus, id volutpat arcu elementum. Sed id rhoncus neque. Maecenas sit amet diam tempus, venenatis leo a, facilisis erat. Aenean rhoncus tempus vehicula.
-  </p>
-
-{% endblock %}
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#">Innovation blog</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarText">
+                  {% block content %} {% endblock %}
+                </div>
+            </nav>
+            <h2>Welcome to this website</h2>
+            <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris luctus sit amet diam sit amet accumsan. Cras vel nulla vehicula, ultricies sapien at, interdum purus. Curabitur nec turpis non lorem vestibulum auctor. Aenean interdum, eros sit amet gravida scelerisque, nisl purus venenatis sapien, et cursus ante augue at enim. Nunc feugiat scelerisque mollis. Cras pulvinar tellus nec ex malesuada lacinia. Sed et felis sem. Proin id lacus quis tellus feugiat aliquam.
+            </p>
+            <p>
+              Donec nisi felis, sollicitudin non sodales sed, posuere porttitor magna. Ut malesuada luctus rutrum. In et ligula in metus bibendum luctus. Maecenas et libero in enim mollis consectetur at nec nibh. Proin lacinia mattis odio, elementum varius nunc egestas sed. Etiam egestas condimentum efficitur. Pellentesque felis justo, scelerisque vulputate vestibulum ut, scelerisque a augue. Nulla sem justo, pretium at ultricies sed, consectetur sit amet sem. Integer sodales faucibus egestas. Proin in felis nec nunc blandit ultricies a eu dui. Fusce leo enim, tincidunt vel consectetur id, sagittis id ex. Duis interdum consequat quam hendrerit rutrum. Ut feugiat suscipit tortor, in suscipit elit tincidunt ac.
+          </p>
+          <p>
+              Nulla erat dui, aliquet sed quam vel, tempus porta nunc. Mauris sit amet ex vitae nulla tempor mattis. Nulla et bibendum ex. In viverra arcu vitae nisi faucibus, id volutpat arcu elementum. Sed id rhoncus neque. Maecenas sit amet diam tempus, venenatis leo a, facilisis erat. Aenean rhoncus tempus vehicula.
+          </p>
+          {% include 'partials/footer.twig' %}
+        </div>
+    </body>
+</html>

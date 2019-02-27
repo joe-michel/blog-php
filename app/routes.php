@@ -14,11 +14,7 @@ $app->get('/',function(ServerRequestInterface $request,ResponseInterface $respon
   return $this->view->render($response, 'home.twig');
 })->setName('home');
 
-$app->get('/login',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
-  return $this->view->render($response, 'login.twig');
-})->setName('login');
-
-$app->post('/login', function(ServerRequestInterface $request,ResponseInterface $response, $args) {
+$app->post('/log', function(ServerRequestInterface $request,ResponseInterface $response, $args) {
   $password = $request->getParam('password');
   $username = $request->getParam('username');
 
@@ -30,7 +26,7 @@ $app->post('/login', function(ServerRequestInterface $request,ResponseInterface 
   $isPasswordOk = password_verify($password, $fetch['password']);
   if (!$isPasswordOk) {
     echo "Le nom d'utilisateur ou le mot de passe est incorrect";
-    return $this->view->render($response, 'login.twig');
+    return $this->view->render($response, 'home.twig');
   } else {
       session_start();
       $_SESSION['id'] = $fetch['id'];
@@ -39,7 +35,7 @@ $app->post('/login', function(ServerRequestInterface $request,ResponseInterface 
       echo "Vous êtes un Beau Gosse";
       return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION]);
     }
-})->setName('login');
+})->setName('log');
 
 $app->get('/signup',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
   return $this->view->render($response, 'signup.twig');
@@ -55,3 +51,9 @@ $app->post('/signup',function(ServerRequestInterface $request,ResponseInterface 
     'password' => $password));
   return $this->view->render($response, 'home.twig');
 })->setName('signup');
+
+$app->post('/disconnect',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
+  session_start();
+  session_destroy();
+  return $this->view->render($response, 'home.twig');
+})->setName('disconnect');
