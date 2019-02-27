@@ -29,7 +29,7 @@ $app->post('/login', function(ServerRequestInterface $request,ResponseInterface 
   $fetch = $req->fetch();
   $isPasswordOk = password_verify($password, $fetch['password']);
   if (!$isPasswordOk) {
-    echo "Nique ta grand-mère en jet-ski";
+    echo "Le nom d'utilisateur ou le mot de passe est incorrect";
     return $this->view->render($response, 'login.twig');
   } else {
       session_start();
