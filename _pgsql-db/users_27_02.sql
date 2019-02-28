@@ -13,6 +13,9 @@ CREATE TABLE "public"."users" (
     CONSTRAINT "users_permissionId_fkey" FOREIGN KEY ("permissionId") REFERENCES permissions(id) NOT DEFERRABLE
 ) WITH (oids = false);
 
+--temp data
 INSERT INTO "users" ("id", "username", "password", "permissionId") VALUES
-(2,	'JoséLeBg',	'$2y$10$8G0/JJcfBYjKEBlySSjrM.YNbrooaB3AOXf.de./0JdZWbXUT7BBK',	'0'),
-(3,	'Francis',	'$2y$10$h3C6INo5cBJvmK2z9QG0H.90nWiRP3wFr8ddg9N3b92nFJDtBiChG',	1);
+(1,	'joesentbon',	'$2y$10$AdsFAkBwIHgVdNfT5IdUtOxKFsyWvhqluW3zI/1oPZev.XyhGak6u',	'0'),
+(2,	'vincent G',	'$2y$10$J43vAL83hfVmuE33bhM6NOo2RXQOFMmokH3P2xBIeVJFFp.5Z/YZW',	'0'),
+(3,	'Papy',	'$2y$10$LxlwjD1FXjETb77KcL7WxeS3Xdm5wwwPgydGFIYdkEYQPlmPtm6iu',	'0'),
+(4,	'Kratos',	'$2y$10$roIxStO3oFUYxkM4VOCKRORD8jPsFiH0DALvFC0fo8ipNQY/g1HBq',	'0');

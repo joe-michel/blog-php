@@ -25,7 +25,7 @@ $app->post('/log', function(ServerRequestInterface $request,ResponseInterface $r
   $password = $request->getParam('password');
   $username = $request->getParam('username');
 
-  $req = $this->db->prepare ('SELECT id, password, permissionid FROM users WHERE username = :username');
+  $req = $this->db->prepare ('SELECT id, password, label_id FROM users WHERE username = :username');
 
   $req->execute(array(
     'username' => $username));
@@ -38,12 +38,12 @@ $app->post('/log', function(ServerRequestInterface $request,ResponseInterface $r
       session_start();
 
       $_SESSION['id'] = $fetch['id'];
-      $_SESSION['permission'] = $fetch['permissionid'];
+      $_SESSION['label'] = $fetch['label_id'];
       $_SESSION['username'] = $username;
 
-      if($_SESSION['permission'] === 0){
+      if($_SESSION['label'] === 0){
         return $this->view->render($response, 'Nav_User.twig', ['curl_result' => $_SESSION]);
-      } else if ($_SESSION['permission'] === 1) {
+      } else if ($_SESSION['label'] === 1) {
         return $this->view->render($response, 'Nav_Author.twig', ['curl_result' => $_SESSION]);
       } else {
         return $this->view->render($response, 'Nav_Admin.twig', ['curl_result' => $_SESSION]);
