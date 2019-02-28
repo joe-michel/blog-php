@@ -11,7 +11,7 @@ use \Psr\Http\Message\ResponseInterface;
 // instance->http verb GET, POST, DELETE, PUT... ('URI', callBackFunction aka closure(PSR 7 request objec $HTTP request, PSR 7 request objec $HTTP response, $array passed to the URI))
 // route for HP
 $app->get('/',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
-  return $this->view->render($response, 'Nav_Visitor.twig');
+  return $this->view->render($response, 'nav_visitor.twig');
 })->setName('home');
 
 $app->post('/log', function(ServerRequestInterface $request,ResponseInterface $response, $args) {
@@ -26,7 +26,7 @@ $app->post('/log', function(ServerRequestInterface $request,ResponseInterface $r
   $isPasswordOk = password_verify($password, $fetch['password']);
   if (!$isPasswordOk) {
     echo "Le nom d'utilisateur ou le mot de passe est incorrect";
-    return $this->view->render($response, 'Nav_Visitor.twig');
+    return $this->view->render($response, 'nav_visitor.twig');
   } else {
       session_start();
       $_SESSION['id'] = $fetch['id'];
@@ -34,11 +34,11 @@ $app->post('/log', function(ServerRequestInterface $request,ResponseInterface $r
       $_SESSION['username'] = $username;
 
       if($_SESSION['label'] === 0){
-        return $this->view->render($response, 'Nav_User.twig', ['curl_result' => $_SESSION]);
+        return $this->view->render($response, 'nav_user.twig', ['curl_result' => $_SESSION]);
       } else if ($_SESSION['label'] === 1) {
-        return $this->view->render($response, 'Nav_Author.twig', ['curl_result' => $_SESSION]);
+        return $this->view->render($response, 'nav_author.twig', ['curl_result' => $_SESSION]);
       } else {
-        return $this->view->render($response, 'Nav_Admin.twig', ['curl_result' => $_SESSION]);
+        return $this->view->render($response, 'nav_admin.twig', ['curl_result' => $_SESSION]);
       }
     }
 
@@ -62,5 +62,5 @@ $app->post('/signup',function(ServerRequestInterface $request,ResponseInterface 
 $app->post('/disconnect',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
   session_start();
   session_destroy();
-  return $this->view->render($response, 'Nav_Visitor.twig');
+  return $this->view->render($response, 'nav_visitor.twig');
 })->setName('home');
