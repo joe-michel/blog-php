@@ -29,11 +29,11 @@
                 <div class="collapse navbar-collapse" id="navbarText">
                   {% if curl_result.label == undefined %}
                   {% include 'nav_visitor.twig' %}
-                  {% elseif curl_result.label == 0 %}
-                  {% include 'nav_user.twig' %}
                   {% elseif curl_result.label == 1 %}
-                  {% include 'nav_author.twig' %}
+                  {% include 'nav_user.twig' %}
                   {% elseif curl_result.label == 2 %}
+                  {% include 'nav_author.twig' %}
+                  {% elseif curl_result.label == 3 %}
                   {% include 'nav_admin.twig' %}
                   {% endif %}
                 </div>

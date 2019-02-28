@@ -26,7 +26,7 @@ $app->post('/log', function(ServerRequestInterface $request,ResponseInterface $r
   $isPasswordOk = password_verify($password, $fetch['password']);
   if (!$isPasswordOk) {
     echo "Le nom d'utilisateur ou le mot de passe est incorrect";
-    return $this->view->render($response, 'nav_visitor.twig');
+    return $this->view->render($response, 'home.twig');
   } else {
       session_start();
       $_SESSION['id'] = $fetch['id'];
@@ -36,9 +36,7 @@ $app->post('/log', function(ServerRequestInterface $request,ResponseInterface $r
     }
 })->setName('home');
 
-$app->get('/signup',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
-  return $this->view->render($response, 'signup.twig');
-})->setName('signup');
+
 
 // Post method for signup and insertion into the DB with password hash
 $app->post('/signup',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
