@@ -48,7 +48,10 @@ $app->post('/signup',function(ServerRequestInterface $request,ResponseInterface 
   $req->execute(array(
     'username' => $username,
     'password' => $password));
-  return $this->view->render($response, 'home.twig');
+  $fetch = $req->fetch();
+  session_start();
+  $_SESSION['username'] = $username;
+  return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION]);
 })->setName('signup');
 
 $app->post('/disconnect',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
