@@ -14,10 +14,37 @@ $app->get('/',function(ServerRequestInterface $request,ResponseInterface $respon
   return $this->view->render($response, 'home.twig');
 })->setName('home');
 
+//Methode pour rediriger en fonction des permissions du user
+/*$app->get('/login', function(ServerRequestInterface $request,ResponseInterface $response,$args) {
+  $permission = $request->getParam('permission');
+  $user = $request->getParam('username');
+//Url de redirection
+  $url_user = 'http://home_user.twig';
+  $url_admin = 'http://home_admin.twig';
+  $url_author = 'http://home_author.twig';
+//Requête effectuée
+  $req = $this->db->prepare ('SELECT id, username FROM users');
+  $req = $this->db->prepare ('SELECT id, rank FROM permissions');
+//Switch pour savoir où et quel moment il est redirigé
+  switch ($permission) {
+    case 'user':
+      header('Location: $url_user');
+      break;
+    case 'admin':
+      header('Location: $url_admin');
+      break;
+    case 'author':
+      header('Location: $url_author');
+      break;
+  };
+  return $this->view->render($response, 'home_user.twig');
+})->setName('user');*/
+
+//We make the login page with a method post
 $app->get('/login',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
   return $this->view->render($response, 'login.twig');
 })->setName('login');
-
+//Here we compare to see if the is registered in our db
 $app->post('/login', function(ServerRequestInterface $request,ResponseInterface $response, $args) {
   $password = $request->getParam('password');
   $username = $request->getParam('username');
@@ -33,6 +60,7 @@ $app->post('/login', function(ServerRequestInterface $request,ResponseInterface 
     return $this->view->render($response, 'login.twig');
   } else {
       session_start();
+
       $_SESSION['id'] = $fetch['id'];
       $_SESSION['username'] = $username;
       echo "Vous êtes un Beau Gosse";
@@ -40,6 +68,7 @@ $app->post('/login', function(ServerRequestInterface $request,ResponseInterface 
     }
 })->setName('login');
 
+//we initiate our signup page
 $app->get('/signup',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
   return $this->view->render($response, 'signup.twig');
 })->setName('signup');
