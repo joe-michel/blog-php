@@ -11,34 +11,38 @@ use \Psr\Http\Message\ResponseInterface;
 // instance->http verb GET, POST, DELETE, PUT... ('URI', callBackFunction aka closure(PSR 7 request objec $HTTP request, PSR 7 request objec $HTTP response, $array passed to the URI))
 // route for HP
 $app->get('/',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
-  return $this->view->render($response, 'home.twig');
+  return $this->view->render($response, 'Nav_Visitor.twig');
 })->setName('home');
 
-$app->get('/login',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
-  return $this->view->render($response, 'login.twig');
-})->setName('login');
-
-$app->post('/login', function(ServerRequestInterface $request,ResponseInterface $response, $args) {
+$app->post('/log', function(ServerRequestInterface $request,ResponseInterface $response, $args) {
   $password = $request->getParam('password');
   $username = $request->getParam('username');
 
-  $req = $this->db->prepare ('SELECT id, password FROM users WHERE username = :username');
+  $req = $this->db->prepare ('SELECT id, password, permissionid FROM users WHERE username = :username');
 
   $req->execute(array(
     'username' => $username));
   $fetch = $req->fetch();
   $isPasswordOk = password_verify($password, $fetch['password']);
   if (!$isPasswordOk) {
-    echo "Nique ta grand-mère en jet-ski";
-    return $this->view->render($response, 'login.twig');
+    echo "Le nom d'utilisateur ou le mot de passe est incorrect";
+    return $this->view->render($response, 'Nav_Visitor.twig');
   } else {
       session_start();
       $_SESSION['id'] = $fetch['id'];
+      $_SESSION['permission'] = $fetch['permissionid'];
       $_SESSION['username'] = $username;
-      echo "Vous êtes un Beau Gosse";
-      return $this->view->render($response, 'home.twig');
+
+      if($_SESSION['permission'] === 0){
+        return $this->view->render($response, 'Nav_User.twig', ['curl_result' => $_SESSION]);
+      } else if ($_SESSION['permission'] === 1) {
+        return $this->view->render($response, 'Nav_Author.twig', ['curl_result' => $_SESSION]);
+      } else {
+        return $this->view->render($response, 'Nav_Admin.twig', ['curl_result' => $_SESSION]);
+      }
     }
-})->setName('login');
+
+})->setName('home');
 
 $app->get('/signup',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
   return $this->view->render($response, 'signup.twig');
@@ -55,32 +59,8 @@ $app->post('/signup',function(ServerRequestInterface $request,ResponseInterface 
   return $this->view->render($response, 'home.twig');
 })->setName('signup');
 
-// route for about +DB content
-$app->get('/about',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
-  $sth = $this->db->prepare("SELECT id, name, profile FROM about");
-  $sth->execute();
-  $about = $sth->fetchAll();
-  //return $this->response->withJson($about);
-  return $this->view->render($response, 'about.twig', ['curl_result' => $about] );
-})->setName('about');
-
-// route for contact
-$app->get('/contact',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
-  return $this->view->render($response, 'contact.twig');
-})->setName('contact');
-
-// Post Requests
-$app->post('/confirm',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
-  //we put the content of the form in an array and then in a variable
-  $data = ['contentForm' => $request->getParam('contentForm')];
-  //because we can only send an array as argument in a render
-  return $this->view->render($response, 'confirm.twig', $data);
-})->setName('confirm');
-
-// get content of DB
-/*$app->get('/contendDb', function (ServerRequestInterface $request,ResponseInterface $response,$arg) {
-    $sth = $this->db->prepare("SELECT `id`, `name`, profile FROM `about`");
-    $sth->execute();
-    $about = $sth->fetchAll();
-    return $this->response->withJson($about);
-});*/
+$app->post('/disconnect',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
+  session_start();
+  session_destroy();
+  return $this->view->render($response, 'Nav_Visitor.twig');
+})->setName('home');
