@@ -32,7 +32,7 @@ $app->post('/log', function(ServerRequestInterface $request,ResponseInterface $r
       $_SESSION['id'] = $fetch['id'];
       $_SESSION['label'] = $fetch['label_id'];
       $_SESSION['username'] = $username;
-      return $this->view->render($response, 'layout.twig', ['curl_result' => $_SESSION]);
+      return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION]);
       /*if($_SESSION['label'] === 0){
         return $this->view->render($response, 'layout.twig', ['curl_result' => $_SESSION]);
       } else if ($_SESSION['label'] === 1) {
