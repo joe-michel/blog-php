@@ -11,34 +11,10 @@ use \Psr\Http\Message\ResponseInterface;
 // instance->http verb GET, POST, DELETE, PUT... ('URI', callBackFunction aka closure(PSR 7 request objec $HTTP request, PSR 7 request objec $HTTP response, $array passed to the URI))
 // route for HP
 $app->get('/',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
-  return $this->view->render($response, 'home.twig');
+  return $this->view->render($response, 'Nav_Visitor.twig');
 })->setName('home');
 
-//Methode pour rediriger en fonction des permissions du user
-/*$app->get('/login', function(ServerRequestInterface $request,ResponseInterface $response,$args) {
-  $permission = $request->getParam('permission');
-  $user = $request->getParam('username');
-//Url de redirection
-  $url_user = 'http://home_user.twig';
-  $url_admin = 'http://home_admin.twig';
-  $url_author = 'http://home_author.twig';
-//Requête effectuée
-  $req = $this->db->prepare ('SELECT id, username FROM users');
-  $req = $this->db->prepare ('SELECT id, rank FROM permissions');
-//Switch pour savoir où et quel moment il est redirigé
-  switch ($permission) {
-    case 'user':
-      header('Location: $url_user');
-      break;
-    case 'admin':
-      header('Location: $url_admin');
-      break;
-    case 'author':
-      header('Location: $url_author');
-      break;
-  };
-  return $this->view->render($response, 'home_user.twig');
-})->setName('user');*/
+<<<<<<< HEAD
 
 //We make the login page with a method post
 $app->get('/login',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
@@ -46,10 +22,13 @@ $app->get('/login',function(ServerRequestInterface $request,ResponseInterface $r
 })->setName('login');
 //Here we compare to see if the is registered in our db
 $app->post('/login', function(ServerRequestInterface $request,ResponseInterface $response, $args) {
+=======
+$app->post('/log', function(ServerRequestInterface $request,ResponseInterface $response, $args) {
+>>>>>>> Login
   $password = $request->getParam('password');
   $username = $request->getParam('username');
 
-  $req = $this->db->prepare ('SELECT id, password FROM users WHERE username = :username');
+  $req = $this->db->prepare ('SELECT id, password, permissionid FROM users WHERE username = :username');
 
   $req->execute(array(
     'username' => $username));
@@ -57,16 +36,24 @@ $app->post('/login', function(ServerRequestInterface $request,ResponseInterface 
   $isPasswordOk = password_verify($password, $fetch['password']);
   if (!$isPasswordOk) {
     echo "Le nom d'utilisateur ou le mot de passe est incorrect";
-    return $this->view->render($response, 'login.twig');
+    return $this->view->render($response, 'Nav_Visitor.twig');
   } else {
       session_start();
 
       $_SESSION['id'] = $fetch['id'];
+      $_SESSION['permission'] = $fetch['permissionid'];
       $_SESSION['username'] = $username;
-      echo "Vous êtes un Beau Gosse";
-      return $this->view->render($response, 'home.twig');
+
+      if($_SESSION['permission'] === 0){
+        return $this->view->render($response, 'Nav_User.twig', ['curl_result' => $_SESSION]);
+      } else if ($_SESSION['permission'] === 1) {
+        return $this->view->render($response, 'Nav_Author.twig', ['curl_result' => $_SESSION]);
+      } else {
+        return $this->view->render($response, 'Nav_Admin.twig', ['curl_result' => $_SESSION]);
+      }
     }
-})->setName('login');
+
+})->setName('home');
 
 //we initiate our signup page
 $app->get('/signup',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
@@ -84,32 +71,8 @@ $app->post('/signup',function(ServerRequestInterface $request,ResponseInterface 
   return $this->view->render($response, 'home.twig');
 })->setName('signup');
 
-// route for about +DB content
-$app->get('/about',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
-  $sth = $this->db->prepare("SELECT id, name, profile FROM about");
-  $sth->execute();
-  $about = $sth->fetchAll();
-  //return $this->response->withJson($about);
-  return $this->view->render($response, 'about.twig', ['curl_result' => $about] );
-})->setName('about');
-
-// route for contact
-$app->get('/contact',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
-  return $this->view->render($response, 'contact.twig');
-})->setName('contact');
-
-// Post Requests
-$app->post('/confirm',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
-  //we put the content of the form in an array and then in a variable
-  $data = ['contentForm' => $request->getParam('contentForm')];
-  //because we can only send an array as argument in a render
-  return $this->view->render($response, 'confirm.twig', $data);
-})->setName('confirm');
-
-// get content of DB
-/*$app->get('/contendDb', function (ServerRequestInterface $request,ResponseInterface $response,$arg) {
-    $sth = $this->db->prepare("SELECT `id`, `name`, profile FROM `about`");
-    $sth->execute();
-    $about = $sth->fetchAll();
-    return $this->response->withJson($about);
-});*/
+$app->post('/disconnect',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
+  session_start();
+  session_destroy();
+  return $this->view->render($response, 'Nav_Visitor.twig');
+})->setName('home');
