@@ -32,16 +32,15 @@ $app->post('/log', function(ServerRequestInterface $request,ResponseInterface $r
       $_SESSION['id'] = $fetch['id'];
       $_SESSION['label'] = $fetch['label_id'];
       $_SESSION['username'] = $username;
-
-      if($_SESSION['label'] === 0){
-        return $this->view->render($response, 'nav_user.twig', ['curl_result' => $_SESSION]);
+      return $this->view->render($response, 'layout.twig', ['curl_result' => $_SESSION]);
+      /*if($_SESSION['label'] === 0){
+        return $this->view->render($response, 'layout.twig', ['curl_result' => $_SESSION]);
       } else if ($_SESSION['label'] === 1) {
-        return $this->view->render($response, 'nav_author.twig', ['curl_result' => $_SESSION]);
+        return $this->view->render($response, 'layout.twig', ['curl_result' => $_SESSION]);
       } else {
-        return $this->view->render($response, 'nav_admin.twig', ['curl_result' => $_SESSION]);
-      }
+        return $this->view->render($response, 'layout.twig', ['curl_result' => $_SESSION]);
+      }*/
     }
-
 })->setName('home');
 
 $app->get('/signup',function(ServerRequestInterface $request,ResponseInterface $response,$args) {

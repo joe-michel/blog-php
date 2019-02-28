@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="{{ description }}">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{{ page.title }}</title>
+
+        {# Google fonts:Open Sans #}
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+
+        {# bootstrap  #}
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+        {# Our customized css #}
+        <link rel="stylesheet" href="{{ base_url() }}/css/style.css">
+    </head>
+    <body>
+
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#">Innovation blog</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarText">
+                  {% if curl_result.label == 0 %}
+                  {% include 'nav_user.twig' %}
+                  {% elseif curl_result.label == 1 %}
+                  {% include 'nav_author.twig' %}
+                  {% elseif curl_result.label == 2 %}
+                  {% include 'nav_admin.twig' %}
+                  {% endif %}
+                </div>
+            </nav>
+
+          {#% block body %} {% endblock %#}
+
+          {% if curl_result is defined %}
+          <p>{{ curl_result|json_encode(constant('JSON_PRETTY_PRINT')) }}</p>
+          {% endif %}
+
+          {% include 'partials/footer.twig' %}
+        </div>
+    </body>
+</html>

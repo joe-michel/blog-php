@@ -1,8 +1,8 @@
-{% extends 'home.twig' %}
+{#% extends 'layout.twig' %#}
 
-{% block content %}
+{% block nav %}
 <span class="navbar-text">
-{{curl_result.username}} (User)
+{{curl_result.username}} (Admin)
 </span>
 <form method="post" action="dash"><button>Dashboard</button></form>
 <form method="post" action="disconnect"><button>disconnect</button></form>
