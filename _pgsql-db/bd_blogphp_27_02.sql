@@ -10,7 +10,6 @@ INSERT INTO "labels" ("id", "user_label") VALUES
 (1,	'author'),
 (2,	'admin');
 
-
 DROP TABLE IF EXISTS "users";
 DROP SEQUENCE IF EXISTS users_id_seq;
 CREATE SEQUENCE users_id_seq INCREMENT 1 MINVALUE 1 MAXVALUE 2147483647 START 1 CACHE 1;
@@ -29,3 +28,23 @@ INSERT INTO "users" ( "username", "password", "label_id") VALUES
 (	'vincent G',	'$2y$10$J43vAL83hfVmuE33bhM6NOo2RXQOFMmokH3P2xBIeVJFFp.5Z/YZW',	0),
 (	'Papy',	'$2y$10$LxlwjD1FXjETb77KcL7WxeS3Xdm5wwwPgydGFIYdkEYQPlmPtm6iu',	0),
 (	'Kratos',	'$2y$10$roIxStO3oFUYxkM4VOCKRORD8jPsFiH0DALvFC0fo8ipNQY/g1HBq',	0);
+
+DROP TABLE IF EXISTS "articles";
+DROP SEQUENCE IF EXISTS artciles_id_seq;
+CREATE SEQUENCE artciles_id_seq INCREMENT 1 MINVALUE 1 MAXVALUE 2147483647 START 1 CACHE 1;
+
+CREATE TABLE "articles" (
+  "id" int DEFAULT nextval('artciles_id_seq') NOT NULL,
+  "title" varchar,
+  "author_id" int,
+  "content" varchar,
+  "date" varchar, --changer le format quand on a le temps
+  -- "categorie_id" int, --ajouter FK when cat table is added
+  -- "comment_id" int, --ajouter FK when com table is added
+  CONSTRAINT "articles_pkey" PRIMARY KEY ("id"),
+  CONSTRAINT "articles_author_id_fkey" FOREIGN KEY ("author_id") REFERENCES users(id) NOT DEFERRABLE
+);
+
+INSERT INTO "articles" ("title", "author_id", "content", "date") VALUES
+('Recette de pâtes bolo', '2', 'Lorem', '28/02/2019')
+;
