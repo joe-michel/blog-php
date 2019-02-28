@@ -1,5 +1,4 @@
 <?php
-
 // Creating routes
 //PSR 7 REQUEST OBJECT
 // we will have to specify that we are using the PSR-7 interfaces
@@ -14,17 +13,15 @@ $app->get('/',function(ServerRequestInterface $request,ResponseInterface $respon
   return $this->view->render($response, 'Nav_Visitor.twig');
 })->setName('home');
 
-<<<<<<< HEAD
 
 //We make the login page with a method post
 $app->get('/login',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
   return $this->view->render($response, 'login.twig');
 })->setName('login');
 //Here we compare to see if the is registered in our db
-$app->post('/login', function(ServerRequestInterface $request,ResponseInterface $response, $args) {
-=======
+
 $app->post('/log', function(ServerRequestInterface $request,ResponseInterface $response, $args) {
->>>>>>> Login
+//Login
   $password = $request->getParam('password');
   $username = $request->getParam('username');
 
