@@ -11,7 +11,7 @@ use \Psr\Http\Message\ResponseInterface;
 // instance->http verb GET, POST, DELETE, PUT... ('URI', callBackFunction aka closure(PSR 7 request objec $HTTP request, PSR 7 request objec $HTTP response, $array passed to the URI))
 // route for HP
 $app->get('/',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
-  return $this->view->render($response, 'nav_visitor.twig');
+  return $this->view->render($response, 'home.twig');
 })->setName('home');
 
 $app->post('/log', function(ServerRequestInterface $request,ResponseInterface $response, $args) {
@@ -57,7 +57,7 @@ $app->post('/signup',function(ServerRequestInterface $request,ResponseInterface 
 $app->post('/disconnect',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
   session_start();
   session_destroy();
-  return $this->view->render($response, 'nav_visitor.twig');
+  return $this->view->render($response, 'home.twig');
 })->setName('home');
 
 $app->post('/dash',function(ServerRequestInterface $request,ResponseInterface $response,$args) {

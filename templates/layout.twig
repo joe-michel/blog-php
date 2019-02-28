@@ -27,7 +27,9 @@
                   <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarText">
-                  {% if curl_result.label == 0 %}
+                  {% if curl_result.label == undefined %}
+                  {% include 'nav_visitor.twig' %}
+                  {% elseif curl_result.label == 0 %}
                   {% include 'nav_user.twig' %}
                   {% elseif curl_result.label == 1 %}
                   {% include 'nav_author.twig' %}
@@ -42,7 +44,7 @@
 
 
           {% include 'partials/footer.twig' %}
-         
+
 
 
         </div>
