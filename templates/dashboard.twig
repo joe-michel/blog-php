@@ -4,7 +4,5 @@
 {% block content %}
 
   <p>Admin page</p>
-  {% if curl_result is defined %}
-  <p>{{ curl_result|json_encode(constant('JSON_PRETTY_PRINT')) }}</p>
-  {% endif %}
+
 {% endblock %}
