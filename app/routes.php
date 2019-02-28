@@ -33,13 +33,6 @@ $app->post('/log', function(ServerRequestInterface $request,ResponseInterface $r
       $_SESSION['label'] = $fetch['label_id'];
       $_SESSION['username'] = $username;
       return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION]);
-      /*if($_SESSION['label'] === 0){
-        return $this->view->render($response, 'layout.twig', ['curl_result' => $_SESSION]);
-      } else if ($_SESSION['label'] === 1) {
-        return $this->view->render($response, 'layout.twig', ['curl_result' => $_SESSION]);
-      } else {
-        return $this->view->render($response, 'layout.twig', ['curl_result' => $_SESSION]);
-      }*/
     }
 })->setName('home');
 
@@ -63,3 +56,8 @@ $app->post('/disconnect',function(ServerRequestInterface $request,ResponseInterf
   session_destroy();
   return $this->view->render($response, 'nav_visitor.twig');
 })->setName('home');
+
+$app->post('/dash',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
+  session_start();
+  return $this->view->render($response, 'dashboard.twig', ['curl_result' => $_SESSION]);
+})->setName('dashboard');
