@@ -62,3 +62,9 @@ $app->post('/dash',function(ServerRequestInterface $request,ResponseInterface $r
   session_start();
   return $this->view->render($response, 'dashboard.twig', ['curl_result' => $_SESSION]);
 })->setName('dashboard');
+
+// button from dashboard.twig to load home.twig
+$app->post('/leaveDash',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
+  session_start();
+  return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION]);
+})->setName('home');
