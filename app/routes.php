@@ -44,20 +44,22 @@ $app->post('/log', function(ServerRequestInterface $request,ResponseInterface $r
 $app->post('/signup',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
   $username = $request->getParam('username');
   $password = password_hash($request->getParam('password'), PASSWORD_BCRYPT);
-  $req = $this->db->prepare('INSERT INTO users VALUES (DEFAULT, :username, :password, 0)');
+  $req = $this->db->prepare('INSERT INTO users VALUES (DEFAULT, :username, :password, 1)');
+  $article_view = $this->articles;
   $req->execute(array(
     'username' => $username,
     'password' => $password));
   $fetch = $req->fetch();
   session_start();
   $_SESSION['username'] = $username;
-  return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION]);
+  return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view]);
 })->setName('signup');
 
 $app->post('/disconnect',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
+  $article_view = $this->articles;
   session_start();
   session_destroy();
-  return $this->view->render($response, 'home.twig');
+  return $this->view->render($response, 'home.twig', ['display_article' => $article_view]);
 })->setName('home');
 
 $app->post('/dash',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
