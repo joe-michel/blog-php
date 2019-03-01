@@ -29,3 +29,10 @@ $container['articles'] = function ($container) {
     $article_view = $req->fetchAll();
     return $article_view;
 };
+
+$container['users'] = function ($container) {
+    $req = $container->db->prepare ('SELECT username, label_id, user_label FROM users INNER JOIN labels ON users.label_id = labels.id');
+    $req->execute();
+    $user_view = $req->fetchAll();
+    return $user_view;
+};

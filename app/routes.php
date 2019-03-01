@@ -63,6 +63,7 @@ $app->post('/disconnect',function(ServerRequestInterface $request,ResponseInterf
 })->setName('home');
 
 $app->post('/dash',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
+  $user_view = $this->users;
   session_start();
-  return $this->view->render($response, 'dashboard.twig', ['curl_result' => $_SESSION]);
+  return $this->view->render($response, 'dashboard.twig', ['curl_result' => $_SESSION, 'user_view' => $user_view]);
 })->setName('dashboard');
