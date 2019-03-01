@@ -11,7 +11,10 @@ use \Psr\Http\Message\ResponseInterface;
 // instance->http verb GET, POST, DELETE, PUT... ('URI', callBackFunction aka closure(PSR 7 request objec $HTTP request, PSR 7 request objec $HTTP response, $array passed to the URI))
 // route for HP
 $app->get('/',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
-  return $this->view->render($response, 'home.twig');
+  $req = $this->db->prepare ('SELECT title, author_id, content, username, date FROM articles INNER JOIN users ON users.id = articles.author_id LIMIT 5 ');
+  $req->execute();
+  $article_view = $req->fetchAll();
+  return $this->view->render($response, 'home.twig', ['display_article' => $article_view]);
 })->setName('home');
 
 $app->post('/log', function(ServerRequestInterface $request,ResponseInterface $response, $args) {
