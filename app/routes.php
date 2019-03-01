@@ -60,7 +60,7 @@ $app->post('/disconnect',function(ServerRequestInterface $request,ResponseInterf
 
 $app->post('/dash',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
   session_start();
-  return $this->view->render($response, 'dashboard.twig', ['curl_result' => $_SESSION]);
+  return $this->view->render($response, 'dashboard.twig', ['curl_result' => $_SESSION, 'page_name' => 'dashboard']);
 })->setName('dashboard');
 
 // button from dashboard.twig to load home.twig
