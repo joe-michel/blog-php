@@ -67,3 +67,9 @@ $app->post('/dash',function(ServerRequestInterface $request,ResponseInterface $r
   session_start();
   return $this->view->render($response, 'dashboard.twig', ['curl_result' => $_SESSION, 'user_view' => $user_view]);
 })->setName('dashboard');
+
+$app->post('/confirm-users',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
+  //we put the content of the form in an array and then in a variable
+  $data = ['confirm-users' => $request->getParam('confirm-users')];
+
+})->setName('confirm-users');
