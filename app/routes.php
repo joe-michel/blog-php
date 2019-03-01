@@ -11,9 +11,7 @@ use \Psr\Http\Message\ResponseInterface;
 // instance->http verb GET, POST, DELETE, PUT... ('URI', callBackFunction aka closure(PSR 7 request objec $HTTP request, PSR 7 request objec $HTTP response, $array passed to the URI))
 // route for HP
 $app->get('/',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
-  $req = $this->db->prepare ('SELECT title, author_id, content, username, date FROM articles INNER JOIN users ON users.id = articles.author_id LIMIT 5 ');
-  $req->execute();
-  $article_view = $req->fetchAll();
+  $article_view = $this->articles;
   return $this->view->render($response, 'home.twig', ['display_article' => $article_view]);
 })->setName('home');
 
@@ -22,6 +20,7 @@ $app->post('/log', function(ServerRequestInterface $request,ResponseInterface $r
   $username = $request->getParam('username');
 
   $req = $this->db->prepare ('SELECT id, password, label_id FROM users WHERE username = :username');
+  $article_view = $this->articles;
 
   $req->execute(array(
     'username' => $username));
@@ -35,7 +34,7 @@ $app->post('/log', function(ServerRequestInterface $request,ResponseInterface $r
       $_SESSION['id'] = $fetch['id'];
       $_SESSION['label'] = $fetch['label_id'];
       $_SESSION['username'] = $username;
-      return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION]);
+      return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view]);
     }
 })->setName('home');
 

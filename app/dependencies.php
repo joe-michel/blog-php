@@ -22,3 +22,10 @@ $container['db'] = function ($container) {
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     return $pdo;
 };
+
+$container['articles'] = function ($container) {
+    $req = $container->db->prepare ('SELECT title, author_id, content, username, date FROM articles INNER JOIN users ON users.id = articles.author_id LIMIT 5 ');
+    $req->execute();
+    $article_view = $req->fetchAll();
+    return $article_view;
+};
