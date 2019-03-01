@@ -69,7 +69,8 @@ $app->post('/dash',function(ServerRequestInterface $request,ResponseInterface $r
 })->setName('dashboard');
 
 $app->post('/confirm-users',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
-  //we put the content of the form in an array and then in a variable
-  $data = ['confirm-users' => $request->getParam('confirm-users')];
+  //doesn't work => we must retrieve datas from the form
+  $dataUser = ['confirm-users' => $request->getParam('confirm-users')];
+  //then send them to Database
 
-})->setName('confirm-users');
+});
