@@ -6,7 +6,7 @@
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
   <p>Admin page</p>gi
   <ul>
-    <form action="{{path_for}}/confirm-users" method="post" name="confirm-users">
+    <form action="{{path_for}}/confirm-users" method="post" name="confirmUsers">
     	{% for i in user_view %}
       {% set counter = ( counter | default(0) ) + 1 %}
         {% if i.user_label != "admin" %}
@@ -15,18 +15,17 @@
         			<div class="card-header">
         				{{ i.username }}
                   {% if i.user_label == "user" %}
-                  <INPUT TYPE="radio" name="rad-{{ counter }}" VALUE="user" checked="checked">User
-                  <INPUT TYPE="radio" name="rad-{{ counter }}" VALUE="author">Author
+                  <INPUT TYPE="radio" name="rad-{{ counter }}" VALUE="{{ i.username }}-user" checked="checked">User
+                  <INPUT TYPE="radio" name="rad-{{ counter }}" VALUE="{{ i.username }}-author">Author
                   {% set inc = inc + 1 %}
                   {% elseif i.user_label == "author" %}
-                  <INPUT TYPE="radio" name="rad-{{ counter }}" VALUE="user">User
-                  <INPUT TYPE="radio" name="rad-{{ counter }}" VALUE="author" checked="checked">Author
+                  <INPUT TYPE="radio" name="rad-{{ counter }}" VALUE="{{ i.username }}-user">User
+                  <INPUT TYPE="radio" name="rad-{{ counter }}" VALUE="{{ i.username }}-author" checked="checked">Author
                   {% set inc = inc + 1 %}
                   {% endif %}
         			</div>
         		</div>
         	</li>
-
         {% endif %}
     	{% endfor %}
       <input class="btn btn-primary" type="submit" value="Submit">

@@ -75,9 +75,18 @@ session_start();
 return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION]);
 })->setName('home');
 
-/*$app->post('/confirm-users',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
+$app->post('/confirm-users',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
   //doesn't work => we must retrieve datas from the form
-  $dataUser = ['confirm-users' => $request->getParam('confirm-users')];
-  //then send them to Database
+  //$data = ['confirmUsers' => $request->getParam('confirmUsers')];
+//echo count($_POST);
 
-});*/
+echo implode(',', $_POST);
+/*
+if (isset($_POST['rad-1']))
+  echo $_POST['rad-1'];
+else
+  echo "nothing was selected.";
+*/
+//then send them to Database
+
+});
