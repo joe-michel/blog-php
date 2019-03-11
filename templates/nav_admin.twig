@@ -1,0 +1,16 @@
+{#% extends 'layout.twig' %#}
+
+{% block nav %}
+<span class="navbar-text">
+{{curl_result.username}} (Admin)
+</span>
+{% if page_name == 'dashboard' %}
+<form method="post" action="leaveDash"><button class="btn btn-primary btn-sm">Site view</button></form>
+{% else %}
+<form method="post" action="dash"><button class="btn btn-primary btn-sm">Dashboard</button></form>
+{% endif %}
+
+<!-- <form method="post" action="dash"><button>Dashboard</button></form> -->
+
+<form method="post" action="disconnect"><button class="btn btn-primary btn-sm mx-1">Disconnect</button></form>
+{% endblock %}

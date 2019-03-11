@@ -1,0 +1,8 @@
+{#% extends 'layout.twig' %#}
+
+{% block nav %}
+<span class="navbar-text">
+{{curl_result.username}} (User)
+</span>
+<form method="post" action="disconnect"><button class="btn btn-primary btn-sm">Disconnect</button></form>
+{% endblock %}
