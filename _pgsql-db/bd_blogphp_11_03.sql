@@ -1,4 +1,4 @@
--- Adminer 4.7.1 PostgreSQL dump
+-- Drop all the tables in the right order
 DROP TABLE IF EXISTS "articles";
 DROP SEQUENCE IF EXISTS articles_id_seq;
 
@@ -10,6 +10,7 @@ DROP TABLE IF EXISTS "labels";
 DROP TABLE IF EXISTS "categories";
 DROP SEQUENCE IF EXISTS categories_id_seq;
 
+-- Create all the tables in the opposite order
 CREATE SEQUENCE categories_id_seq INCREMENT 1 MINVALUE 1 MAXVALUE 2147483647 START 1 CACHE 1;
 
 CREATE TABLE "public"."categories" (
