@@ -11,7 +11,8 @@ use \Psr\Http\Message\ResponseInterface;
 // instance->http verb GET, POST, DELETE, PUT... ('URI', callBackFunction aka closure(PSR 7 request objec $HTTP request, PSR 7 request objec $HTTP response, $array passed to the URI))
 // route for HP
 $app->get('/',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
-  return $this->view->render($response, 'home.twig');
+  $article_view = $this->articles;
+  return $this->view->render($response, 'home.twig', ['display_article' => $article_view]);
 })->setName('home');
 
 $app->post('/log', function(ServerRequestInterface $request,ResponseInterface $response, $args) {
@@ -19,6 +20,7 @@ $app->post('/log', function(ServerRequestInterface $request,ResponseInterface $r
   $username = $request->getParam('username');
 
   $req = $this->db->prepare ('SELECT id, password, label_id FROM users WHERE username = :username');
+  $article_view = $this->articles;
 
   $req->execute(array(
     'username' => $username));
@@ -32,7 +34,7 @@ $app->post('/log', function(ServerRequestInterface $request,ResponseInterface $r
       $_SESSION['id'] = $fetch['id'];
       $_SESSION['label'] = $fetch['label_id'];
       $_SESSION['username'] = $username;
-      return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION]);
+      return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view]);
     }
 })->setName('home');
 
@@ -42,23 +44,39 @@ $app->post('/log', function(ServerRequestInterface $request,ResponseInterface $r
 $app->post('/signup',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
   $username = $request->getParam('username');
   $password = password_hash($request->getParam('password'), PASSWORD_BCRYPT);
-  $req = $this->db->prepare('INSERT INTO users VALUES (DEFAULT, :username, :password, 0)');
+  $req = $this->db->prepare('INSERT INTO users VALUES (DEFAULT, :username, :password, 1)');
+  $article_view = $this->articles;
   $req->execute(array(
     'username' => $username,
     'password' => $password));
   $fetch = $req->fetch();
   session_start();
   $_SESSION['username'] = $username;
-  return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION]);
+  return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view]);
 })->setName('signup');
 
 $app->post('/disconnect',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
+  $article_view = $this->articles;
   session_start();
   session_destroy();
-  return $this->view->render($response, 'home.twig');
+  return $this->view->render($response, 'home.twig', ['display_article' => $article_view]);
 })->setName('home');
 
 $app->post('/dash',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
+  $user_view = $this->users;
   session_start();
-  return $this->view->render($response, 'dashboard.twig', ['curl_result' => $_SESSION]);
+  return $this->view->render($response, 'dashboard.twig', ['curl_result' => $_SESSION, 'user_view' => $user_view, 'page_name' => 'dashboard']);
 })->setName('dashboard');
+
+// button from dashboard.twig to load home.twig
+$app->post('/leaveDash',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
+  session_start();
+  return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION]);
+})->setName('home');
+
+/*$app->post('/confirm-users',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
+  //doesn't work => we must retrieve datas from the form
+  $dataUser = ['confirm-users' => $request->getParam('confirm-users')];
+  //then send them to Database
+
+});*/

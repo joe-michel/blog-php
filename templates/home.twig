@@ -5,4 +5,27 @@
 
   <p>Homepage</p>
 
+  <ul>
+  	{% for i in display_article %}
+  	<li>
+  		<div class="card text-center mb-4">
+  			<div class="card-header">
+  				{{ i.username }}
+  			</div>
+  			<div class="card-body">
+  				<h5 class="card-title">{{ i.title }}</h5>
+  				<p class="card-text">{{ i.content }}</p>
+  			</div>
+  			<div class="card-footer text-muted">
+  				{{ i.date }}
+  			</div>
+  		</div>
+	   </li>
+  	{% endfor %}
+  </ul>
+
+  <?php echo display_article;
+
+  ?>
+
 {% endblock %}
