@@ -79,8 +79,16 @@ $app->post('/confirm-users',function(ServerRequestInterface $request,ResponseInt
   //doesn't work => we must retrieve datas from the form
   //$data = ['confirmUsers' => $request->getParam('confirmUsers')];
 //echo count($_POST);
-
-echo implode(',', $_POST);
+  for ($i = 1 ; $i <= count($_POST); $i++){
+    //echo $i;
+    //echo $_POST['rad-'.$i];
+    $data = $_POST['rad-'.$i];
+    list($user, $status) = explode("::", $data);
+    echo $user . " ";
+    echo $status;
+    echo "<br>";
+  }
+//echo implode(',', $_POST);
 /*
 if (isset($_POST['rad-1']))
   echo $_POST['rad-1'];
