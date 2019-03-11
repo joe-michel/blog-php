@@ -76,25 +76,18 @@ return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION])
 })->setName('home');
 
 $app->post('/confirm-users',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
-  //doesn't work => we must retrieve datas from the form
-  //$data = ['confirmUsers' => $request->getParam('confirmUsers')];
-//echo count($_POST);
   for ($i = 1 ; $i <= count($_POST); $i++){
-    //echo $i;
-    //echo $_POST['rad-'.$i];
-    $data = $_POST['rad-'.$i];
-    list($user, $status) = explode("::", $data);
-    echo $user . " ";
+    $dataPost = $_POST['rad-'.$i];
+    list($user, $status) = explode("::", $dataPost);
+    /*echo $user . " ";
     echo $status;
-    echo "<br>";
+    echo "<br>";*/
+    $data = [
+    'user' => $user,
+    'status' => $status,
+    ];
+    $sql = "UPDATE users SET label_id=:status WHERE username=:user";
+    $dpo->prepare($sql)->execute($data);
   }
-//echo implode(',', $_POST);
-/*
-if (isset($_POST['rad-1']))
-  echo $_POST['rad-1'];
-else
-  echo "nothing was selected.";
-*/
-//then send them to Database
-
+  return $this->view->render($response, 'dashboard.twig', ['curl_result' => $_SESSION, 'user_view' => $user_view, 'page_name' => 'dashboard']);
 });

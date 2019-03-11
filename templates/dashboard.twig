@@ -15,12 +15,12 @@
         			<div class="card-header">
         				{{ i.username }}
                   {% if i.user_label == "user" %}
-                  <INPUT TYPE="radio" name="rad-{{ counter }}" VALUE="{{ i.username }}::user" checked="checked">User
-                  <INPUT TYPE="radio" name="rad-{{ counter }}" VALUE="{{ i.username }}::author">Author
+                  <INPUT TYPE="radio" name="rad-{{ counter }}" VALUE="{{ i.username }}::1" checked="checked">User
+                  <INPUT TYPE="radio" name="rad-{{ counter }}" VALUE="{{ i.username }}::2">Author
                   {% set inc = inc + 1 %}
                   {% elseif i.user_label == "author" %}
-                  <INPUT TYPE="radio" name="rad-{{ counter }}" VALUE="{{ i.username }}::user">User
-                  <INPUT TYPE="radio" name="rad-{{ counter }}" VALUE="{{ i.username }}::author" checked="checked">Author
+                  <INPUT TYPE="radio" name="rad-{{ counter }}" VALUE="{{ i.username }}::1">User
+                  <INPUT TYPE="radio" name="rad-{{ counter }}" VALUE="{{ i.username }}::2" checked="checked">Author
                   {% set inc = inc + 1 %}
                   {% endif %}
         			</div>
