@@ -70,9 +70,8 @@ $app->post('/dash',function(ServerRequestInterface $request,ResponseInterface $r
 
 // button from dashboard.twig to load home.twig
 $app->post('/leaveDash',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
-session_start();
-
-return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION]);
+  session_start();
+  return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION]);
 })->setName('home');
 
 /*$app->post('/confirm-users',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
