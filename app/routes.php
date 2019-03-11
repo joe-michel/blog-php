@@ -79,15 +79,15 @@ $app->post('/confirm-users',function(ServerRequestInterface $request,ResponseInt
   for ($i = 1 ; $i <= count($_POST); $i++){
     $dataPost = $_POST['rad-'.$i];
     list($user, $status) = explode("::", $dataPost);
-    /*echo $user . " ";
+    echo $i;
+    echo $user . " ";
     echo $status;
-    echo "<br>";*/
-    $data = [
-    'user' => $user,
-    'status' => $status,
-    ];
-    $sql = "UPDATE users SET label_id=:status WHERE username=:user";
-    $dpo->prepare($sql)->execute($data);
+    echo "<br>";
+    $req = $this->db->prepare('UPDATE users SET label_id=:status WHERE username=:user');
+    $req->execute(array(
+      'user' => $user,
+      'status' => $status,
+    ));
   }
-  return $this->view->render($response, 'dashboard.twig', ['curl_result' => $_SESSION, 'user_view' => $user_view, 'page_name' => 'dashboard']);
+  //return $this->view->render($response, 'dashboard.twig', ['curl_result' => $_SESSION, 'user_view' => $user_view, 'page_name' => 'dashboard']);
 });
