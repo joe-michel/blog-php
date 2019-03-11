@@ -24,7 +24,6 @@ INSERT INTO "categories" ("id", "categorie") VALUES
 (2,	'Lorem'),
 (3,	'Random');
 
-DROP TABLE IF EXISTS "labels";
 CREATE TABLE "public"."labels" (
     "id" integer NOT NULL,
     "user_label" character varying,
@@ -36,8 +35,6 @@ INSERT INTO "labels" ("id", "user_label") VALUES
 (2,	'author'),
 (3,	'admin');
 
-DROP TABLE IF EXISTS "users";
-DROP SEQUENCE IF EXISTS users_id_seq;
 CREATE SEQUENCE users_id_seq INCREMENT 1 MINVALUE 1 MAXVALUE 2147483647 START 1 CACHE 1;
 
 CREATE TABLE "public"."users" (
