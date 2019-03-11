@@ -24,7 +24,7 @@ $container['db'] = function ($container) {
 };
 
 $container['articles'] = function ($container) {
-    $req = $container->db->prepare ('SELECT title, author_id, content, username, date FROM articles INNER JOIN users ON users.id = articles.author_id LIMIT 5 ');
+    $req = $container->db->prepare ('SELECT title, author_id, content, username, date FROM articles INNER JOIN users ON users.id = articles.author_id ORDER BY articles.id DESC LIMIT 5');
     $req->execute();
     $article_view = $req->fetchAll();
     return $article_view;
