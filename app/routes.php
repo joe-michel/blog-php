@@ -65,8 +65,7 @@ $app->post('/disconnect',function(ServerRequestInterface $request,ResponseInterf
 $app->post('/dash',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
   $user_view = $this->users;
   session_start();
-
-return $this->view->render($response, 'dashboard.twig', ['curl_result' => $_SESSION, 'page_name' => 'dashboard']);
+  return $this->view->render($response, 'dashboard.twig', ['curl_result' => $_SESSION, 'user_view' => $user_view, 'page_name' => 'dashboard']);
 })->setName('dashboard');
 
 // button from dashboard.twig to load home.twig
