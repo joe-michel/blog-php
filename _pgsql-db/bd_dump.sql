@@ -1,4 +1,7 @@
 -- Drop all the tables in the right order
+DROP TABLE IF EXISTS "comments";
+DROP SEQUENCE IF EXISTS comments_id_seq;
+
 DROP TABLE IF EXISTS "articles";
 DROP SEQUENCE IF EXISTS articles_id_seq;
 
