@@ -80,3 +80,19 @@ $app->post('/confirm-users',function(ServerRequestInterface $request,ResponseInt
   //then send them to Database
 
 });
+
+$app->post('/new_article',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
+  session_start();
+  $title = $request->getParam('title');
+  $content = $request->getParam('content');
+  $author_id = $_SESSION['id'];
+  $date = date("d/m/y");
+
+  $req = $this->db->prepare ("INSERT INTO articles VALUES (DEFAULT, :title, '$author_id', :content, '$date')");
+  $req->execute(array(
+    'title' => $title,
+    'content' => $content));
+  $fetch = $req->fetch();
+  $article_view = $this->articles;
+  return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view]);
+});
