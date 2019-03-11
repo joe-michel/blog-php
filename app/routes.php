@@ -65,9 +65,15 @@ $app->post('/disconnect',function(ServerRequestInterface $request,ResponseInterf
 $app->post('/dash',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
   $user_view = $this->users;
   session_start();
-  return $this->view->render($response, 'dashboard.twig', ['curl_result' => $_SESSION, 'user_view' => $user_view]);
+  return $this->view->render($response, 'dashboard.twig', ['curl_result' => $_SESSION, 'user_view' => $user_view, 'page_name' => 'dashboard']);
 })->setName('dashboard');
 
+/*$app->post('/dash',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
+  $user_view = $this->users;
+  session_start();
+
+return $this->view->render($response, 'dashboard.twig', ['curl_result' => $_SESSION, 'page_name' => 'dashboard']);
+})->setName('dashboard');*/
 $app->post('/confirm-users',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
   //doesn't work => we must retrieve datas from the form
   $dataUser = ['confirm-users' => $request->getParam('confirm-users')];
