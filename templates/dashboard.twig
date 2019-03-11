@@ -2,7 +2,35 @@
 
 
 {% block content %}
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+  <p>Admin page</p>gi
+  <ul>
+    <form action="{{path_for}}/confirm-users" method="post" name="confirm-users">
+    	{% for i in user_view %}
+      {% set counter = ( counter | default(0) ) + 1 %}
+        {% if i.user_label != "admin" %}
+          <li>
+        		<div class="card text-center mb-4">
+        			<div class="card-header">
+        				{{ i.username }}
+                  {% if i.user_label == "user" %}
+                  <INPUT TYPE="radio" name="rad-{{ counter }}" VALUE="user" checked="checked">User
+                  <INPUT TYPE="radio" name="rad-{{ counter }}" VALUE="author">Author
+                  {% set inc = inc + 1 %}
+                  {% elseif i.user_label == "author" %}
+                  <INPUT TYPE="radio" name="rad-{{ counter }}" VALUE="user">User
+                  <INPUT TYPE="radio" name="rad-{{ counter }}" VALUE="author" checked="checked">Author
+                  {% set inc = inc + 1 %}
+                  {% endif %}
+        			</div>
+        		</div>
+        	</li>
 
-  <p>Admin page</p>
-<!-- <form method="post" action="leaveDash"><button>Site view</button></form> -->
+        {% endif %}
+    	{% endfor %}
+      <input class="btn btn-primary" type="submit" value="Submit">
+    </form>
+  </ul>
+
 {% endblock %}
