@@ -12,7 +12,8 @@ use \Psr\Http\Message\ResponseInterface;
 // route for HP
 $app->get('/',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
   $article_view = $this->articles;
-  return $this->view->render($response, 'home.twig', ['display_article' => $article_view]);
+  $comments_view = $this->comments;
+  return $this->view->render($response, 'home.twig', ['display_article' => $article_view, 'display_comments' => $comments_view]);
 })->setName('home');
 
 $app->post('/log', function(ServerRequestInterface $request,ResponseInterface $response, $args) {
@@ -21,6 +22,7 @@ $app->post('/log', function(ServerRequestInterface $request,ResponseInterface $r
 
   $req = $this->db->prepare ('SELECT id, password, label_id FROM users WHERE username = :username');
   $article_view = $this->articles;
+  $comments_view = $this->comments;
 
   $req->execute(array(
     'username' => $username));
@@ -34,7 +36,7 @@ $app->post('/log', function(ServerRequestInterface $request,ResponseInterface $r
       $_SESSION['id'] = $fetch['id'];
       $_SESSION['label'] = $fetch['label_id'];
       $_SESSION['username'] = $username;
-      return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view]);
+      return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view, 'display_comments' => $comments_view]);
     }
 })->setName('home');
 
@@ -46,20 +48,22 @@ $app->post('/signup',function(ServerRequestInterface $request,ResponseInterface 
   $password = password_hash($request->getParam('password'), PASSWORD_BCRYPT);
   $req = $this->db->prepare('INSERT INTO users VALUES (DEFAULT, :username, :password, 1)');
   $article_view = $this->articles;
+  $comments_view = $this->comments;
   $req->execute(array(
     'username' => $username,
     'password' => $password));
   $fetch = $req->fetch();
   session_start();
   $_SESSION['username'] = $username;
-  return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view]);
+  return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view, 'display_comments' => $comments_view]);
 })->setName('signup');
 
 $app->post('/disconnect',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
   $article_view = $this->articles;
+  $comments_view = $this->comments;
   session_start();
   session_destroy();
-  return $this->view->render($response, 'home.twig', ['display_article' => $article_view]);
+  return $this->view->render($response, 'home.twig', ['display_article' => $article_view, 'display_comments' => $comments_view]);
 })->setName('home');
 
 $app->post('/dash',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
@@ -79,4 +83,25 @@ $app->post('/leaveDash',function(ServerRequestInterface $request,ResponseInterfa
   $dataUser = ['confirm-users' => $request->getParam('confirm-users')];
   //then send them to Database
 
+<<<<<<< HEAD
 });*/
+
+});
+
+$app->post('/new_article',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
+  session_start();
+  $title = $request->getParam('title');
+  $content = $request->getParam('content');
+  $author_id = $_SESSION['id'];
+  $date = date("d/m/y");
+
+  $req = $this->db->prepare ("INSERT INTO articles VALUES (DEFAULT, :title, '$author_id', :content, '$date')");
+  $req->execute(array(
+    'title' => $title,
+    'content' => $content));
+  $fetch = $req->fetch();
+  $article_view = $this->articles;
+  $comments_view = $this->comments;
+  return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view, 'display_comments' => $comments_view]);
+});
+
