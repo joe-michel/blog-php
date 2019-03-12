@@ -32,9 +32,17 @@
                   {% elseif curl_result.label == 1 %}
                   {% include 'nav_user.twig' %}
                   {% elseif curl_result.label == 2 %}
+                  <button type="button" class="btn btn-primary btn-sm mr-5" data-toggle="modal" data-target="#exampleModalCenter">
+                    Create new article
+                  </button>
                   {% include 'nav_author.twig' %}
+                 
                   {% elseif curl_result.label == 3 %}
+                  <button type="button" class="btn btn-primary btn-sm mr-5" data-toggle="modal" data-target="#exampleModalCenter">
+                    Create new article
+                  </button>
                   {% include 'nav_admin.twig' %}
+
                   {% endif %}
                 </div>
             </nav>
@@ -48,5 +56,29 @@
 
 
         </div>
+        <!-- Modal -->
+          <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered  modal-lg text-center" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalCenterTitle">Article Creation</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form method="post" action="{{path_for('new_article')}}">
+                    <p>Article title</p>
+                    <input type="text" name="title"></input>
+
+                    <p>Article content</p>
+                    <textarea type="textarea" name="content" cols="55" rows="15"></textarea>
+
+                    <p><input type="submit" name="create"></input></p>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
     </body>
 </html>

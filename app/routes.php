@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 // Creating routes
 //PSR 7 REQUEST OBJECT
 // we will have to specify that we are using the PSR-7 interfaces
@@ -14,7 +16,7 @@ $app->get('/',function(ServerRequestInterface $request,ResponseInterface $respon
   $article_view = $this->articles;
   $comments_view = $this->comments;
   return $this->view->render($response, 'home.twig', ['display_article' => $article_view, 'display_comments' => $comments_view]);
-})->setName('home');
+});
 
 $app->post('/log', function(ServerRequestInterface $request,ResponseInterface $response, $args) {
   $password = $request->getParam('password');
@@ -32,13 +34,12 @@ $app->post('/log', function(ServerRequestInterface $request,ResponseInterface $r
     echo "Le nom d'utilisateur ou le mot de passe est incorrect";
     return $this->view->render($response, 'home.twig');
   } else {
-      session_start();
       $_SESSION['id'] = $fetch['id'];
       $_SESSION['label'] = $fetch['label_id'];
       $_SESSION['username'] = $username;
       return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view, 'display_comments' => $comments_view]);
     }
-})->setName('home');
+})->setName('log');
 
 
 
@@ -53,7 +54,6 @@ $app->post('/signup',function(ServerRequestInterface $request,ResponseInterface 
     'username' => $username,
     'password' => $password));
   $fetch = $req->fetch();
-  session_start();
   $_SESSION['username'] = $username;
   return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view, 'display_comments' => $comments_view]);
 })->setName('signup');
@@ -61,22 +61,21 @@ $app->post('/signup',function(ServerRequestInterface $request,ResponseInterface 
 $app->post('/disconnect',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
   $article_view = $this->articles;
   $comments_view = $this->comments;
-  session_start();
   session_destroy();
   return $this->view->render($response, 'home.twig', ['display_article' => $article_view, 'display_comments' => $comments_view]);
-})->setName('home');
+})->setName('disconnect');
 
 $app->post('/dash',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
   $user_view = $this->users;
-  session_start();
   return $this->view->render($response, 'dashboard.twig', ['curl_result' => $_SESSION, 'user_view' => $user_view, 'page_name' => 'dashboard']);
-})->setName('dashboard');
+})->setName('dash');
 
 // button from dashboard.twig to load home.twig
 $app->post('/leaveDash',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
-  session_start();
-  return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION]);
-})->setName('home');
+  $article_view = $this->articles;
+  $comments_view = $this->comments;
+  return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view, 'display_comments' => $comments_view]);
+})->setName('leaveDash');
 
 /*$app->post('/confirm-users',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
   //doesn't work => we must retrieve datas from the form
@@ -85,7 +84,6 @@ $app->post('/leaveDash',function(ServerRequestInterface $request,ResponseInterfa
 });*/
 
 $app->post('/new_article',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
-  session_start();
   $title = $request->getParam('title');
   $content = $request->getParam('content');
   $author_id = $_SESSION['id'];
@@ -99,5 +97,13 @@ $app->post('/new_article',function(ServerRequestInterface $request,ResponseInter
   $article_view = $this->articles;
   $comments_view = $this->comments;
   return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view, 'display_comments' => $comments_view]);
-});
+})->setName('new_article');
 
+$app->post('/delete_article/{id}', function(ServerRequestInterface $request,ResponseInterface $response,$args) {
+  $req = $this->db->prepare ("DELETE FROM articles WHERE id = :id");
+  $req->bindValue('id',$args['id']);
+  $req->execute();
+  $article_view = $this->articles;
+  $comments_view = $this->comments;
+  return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view, 'display_comments' => $comments_view]);
+})->setName('delete_article');

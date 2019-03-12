@@ -38,7 +38,7 @@ $container['users'] = function ($container) {
 };
 
 $container['comments'] = function ($container) {
-    $req = $container->db->prepare ('SELECT article_id, username, date, content FROM comments INNER JOIN users ON comments.author_id = users.id');
+    $req = $container->db->prepare ('SELECT article_id, username, date, content FROM comments INNER JOIN users ON comments.author_id = users.id ORDER BY comments.id DESC');
     $req->execute();
     $comments_view = $req->fetchAll();
     return $comments_view;
