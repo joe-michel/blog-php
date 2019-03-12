@@ -82,11 +82,7 @@ $app->post('/leaveDash',function(ServerRequestInterface $request,ResponseInterfa
   //doesn't work => we must retrieve datas from the form
   $dataUser = ['confirm-users' => $request->getParam('confirm-users')];
   //then send them to Database
-
-<<<<<<< HEAD
 });*/
-
-});
 
 $app->post('/new_article',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
   session_start();
