@@ -8,24 +8,57 @@
   <ul>
   	{% for i in display_article %}
   	<li> 
-  		<div class="card text-center mb-4">
+  		<div class="card text-left mb-4">
   			<div class="card-header">
-  				{{ i.username }}
+  				{{ i.username }} 
   			</div>
   			<div class="card-body">
-  				<h5 class="card-title">{{ i.title }}</h5>
+  				<h5 class="card-title text-center">{{ i.title }}</h5>
   				<p class="card-text">{{ i.content }}</p>
   			</div>
-  			<div class="card-footer text-muted">
-  				{{ i.date }}
+  			<div class="card-footer text-muted text-right">
+  				{% if curl_result.label == 3 %}
+	  				<form method="put" action="edit_article" class="mt-2 text-left">
+	  					<button type="submit" class="btn btn-success" name="edit">Edit Article</button>
+	  				</form>
+	  				<form method="delete" action="delete_article" class="mt-2 mb-2 text-left">
+	  					<button type="submit" class="btn btn-danger" name="delete">Delete Article</button>
+	  				</form>
+  				{% endif %}
+  				<a href="#" class="mr-2"  data-toggle="modal" data-target="#articleModal{{i.id}}">show comments</a> {{ i.date }}
+  			</div>
+
+  			
+  		</div>
+  	</li>
+
+  	<!-- Modal -->
+  	<div class="modal fade" id="articleModal{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  		<div class="modal-dialog modal-dialog-centered" role="document">
+  			<div class="modal-content">
+  				<div class="modal-body">
+  					<div class="card text-center mb-4">
+  						<div class="card-header">
+  							{{ i.username }}
+  						</div>
+  						<div class="card-body">
+  							<h5 class="card-title">{{ i.title }}</h5>
+  							<p class="card-text">{{ i.content }}</p>
+  						</div>
+  						<div class="card-footer text-muted">
+  							{{ i.date }}
+  						</div>
+
+
+
+  					</div>
+  				</div>
   			</div>
   		</div>
-	</li>
+  	</div>
   	{% endfor %}
   </ul>
 
-  <?php echo display_article;
-
-  ?>
+  
 
 {% endblock %}
