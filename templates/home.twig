@@ -26,6 +26,7 @@
 	  				</form>
   				{% endif %}
   				<a href="#" class="mr-2"  data-toggle="modal" data-target="#articleModal{{i.id}}">show comments</a> {{ i.date }}
+
   			</div>
 
   			
@@ -48,8 +49,12 @@
   						<div class="card-footer text-muted">
   							{{ i.date }}
   						</div>
-
-
+  						{% for j in display_comments %}
+  							{% if i.id == j.article_id %}
+	  							{{j.content}}
+	  							{{j.username}}{{i.date}}
+	  						{% endif %}
+  						{% endfor %}
 
   					</div>
   				</div>

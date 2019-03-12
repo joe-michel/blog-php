@@ -24,7 +24,7 @@ $container['db'] = function ($container) {
 };
 
 $container['articles'] = function ($container) {
-    $req = $container->db->prepare ('SELECT title, author_id, content, username, date FROM articles INNER JOIN users ON users.id = articles.author_id ORDER BY articles.id DESC LIMIT 5');
+    $req = $container->db->prepare ('SELECT articles.id, title, author_id, content, username, date FROM articles INNER JOIN users ON users.id = articles.author_id ORDER BY articles.id DESC LIMIT 5');
     $req->execute();
     $article_view = $req->fetchAll();
     return $article_view;
@@ -35,4 +35,11 @@ $container['users'] = function ($container) {
     $req->execute();
     $user_view = $req->fetchAll();
     return $user_view;
+};
+
+$container['comments'] = function ($container) {
+    $req = $container->db->prepare ('SELECT article_id, username, date, content FROM comments INNER JOIN users ON comments.author_id = users.id');
+    $req->execute();
+    $comments_view = $req->fetchAll();
+    return $comments_view;
 };
