@@ -67,8 +67,8 @@ CREATE TABLE "public"."articles" (
     "date" character varying,
     "categorie_id" integer,
     CONSTRAINT "articles_pkey" PRIMARY KEY ("id"),
-    CONSTRAINT "articles_author_id_fkey" FOREIGN KEY (author_id) REFERENCES users(id) NOT DEFERRABLE,
-    CONSTRAINT "articles_categorie_id_fkey" FOREIGN KEY (categorie_id) REFERENCES categories(id) NOT DEFERRABLE
+    CONSTRAINT "articles_author_id_fkey" FOREIGN KEY (author_id) REFERENCES users(id) ON DELETE SET NULL NOT DEFERRABLE,
+    CONSTRAINT "articles_categorie_id_fkey" FOREIGN KEY (categorie_id) REFERENCES categories(id) ON DELETE SET NULL NOT DEFERRABLE
 ) WITH (oids = false);
 
 INSERT INTO "articles" ("title", "author_id", "content", "date", "categorie_id") VALUES
@@ -87,12 +87,12 @@ CREATE SEQUENCE comments_id_seq INCREMENT 1 MINVALUE 1 MAXVALUE 2147483647 START
 CREATE TABLE "public"."comments" (
   "id" integer DEFAULT nextval('comments_id_seq') NOT NULL,
   "author_id" integer,
-  "article_id" integer ON DELETE CASCADE,
+  "article_id" integer,
   "content" character varying,
   "date" character varying,
   CONSTRAINT "comments_pkey" PRIMARY KEY ("id"),
-  CONSTRAINT "comments_author_id_fkey" FOREIGN KEY (author_id) REFERENCES users(id) NOT DEFERRABLE,
-  CONSTRAINT "comments_article_id_fkey" FOREIGN KEY (article_id) REFERENCES articles(id) NOT DEFERRABLE
+  CONSTRAINT "comments_author_id_fkey" FOREIGN KEY (author_id) REFERENCES users(id) ON DELETE SET NULL NOT DEFERRABLE,
+  CONSTRAINT "comments_article_id_fkey" FOREIGN KEY (article_id) REFERENCES articles(id) ON DELETE CASCADE NOT DEFERRABLE
 ) WITH (oids = false);
 
 INSERT INTO "comments" ("author_id", "article_id", "content", "date") VALUES
