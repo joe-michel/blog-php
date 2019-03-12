@@ -107,3 +107,17 @@ $app->post('/delete_article/{id}', function(ServerRequestInterface $request,Resp
   $comments_view = $this->comments;
   return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view, 'display_comments' => $comments_view]);
 })->setName('delete_article');
+
+$app->post('/edit/{id}', function(ServerRequestInterface $request,ResponseInterface $response,$args) {
+  $title = $request->getParam('title');
+  $content = $request->getParam('content');
+  $id = $args['id'];
+  $req = $this->db->prepare ("UPDATE articles SET title = :title, content = :content WHERE id='$id'");
+  $req->execute(array(
+    'title' => $title,
+    'content' => $content));
+  $fetch = $req->fetch();
+  $article_view = $this->articles;
+  $comments_view = $this->comments;
+  return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view, 'display_comments' => $comments_view]);
+})->setName('edit');
