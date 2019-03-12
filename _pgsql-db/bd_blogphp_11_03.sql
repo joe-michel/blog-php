@@ -87,7 +87,7 @@ CREATE SEQUENCE comments_id_seq INCREMENT 1 MINVALUE 1 MAXVALUE 2147483647 START
 CREATE TABLE "public"."comments" (
   "id" integer DEFAULT nextval('comments_id_seq') NOT NULL,
   "author_id" integer,
-  "article_id" integer,
+  "article_id" integer ON DELETE CASCADE,
   "content" character varying,
   "date" character varying,
   CONSTRAINT "comments_pkey" PRIMARY KEY ("id"),
