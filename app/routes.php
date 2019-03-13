@@ -132,6 +132,7 @@ $app->post('/comment/{id}', function(ServerRequestInterface $request,ResponseInt
   $fetch = $req->fetch();
   $article_view = $this->articles;
   $comments_view = $this->comments;
+
   return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view, 'display_comments' => $comments_view]);
 })->setName('comment');
 
