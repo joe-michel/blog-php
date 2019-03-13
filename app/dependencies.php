@@ -30,6 +30,13 @@ $container['articles'] = function ($container) {
     return $article_view;
 };
 
+$container['authors'] = function ($container) {
+    $req = $container->db->prepare ('SELECT * FROM users WHERE label_id >= 2');
+    $req->execute();
+    $authors_view = $req->fetchAll();
+    return $authors_view;
+};
+
 $container['users'] = function ($container) {
     $req = $container->db->prepare ('SELECT username, label_id, user_label FROM users INNER JOIN labels ON users.label_id = labels.id');
     $req->execute();
