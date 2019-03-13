@@ -88,7 +88,6 @@ $app->post('/new_article',function(ServerRequestInterface $request,ResponseInter
   $content = $request->getParam('content');
   $author_id = $_SESSION['id'];
   $date = date("d/m/y");
-
   $req = $this->db->prepare ("INSERT INTO articles VALUES (DEFAULT, :title, '$author_id', :content, '$date')");
   $req->execute(array(
     'title' => $title,
@@ -121,3 +120,26 @@ $app->post('/edit/{id}', function(ServerRequestInterface $request,ResponseInterf
   $comments_view = $this->comments;
   return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view, 'display_comments' => $comments_view]);
 })->setName('edit');
+
+$app->post('/comment/{id}', function(ServerRequestInterface $request,ResponseInterface $response,$args) {
+  $commentary = $request->getParam('commentary');
+  $date = date("d/m/y");
+  $article_id = $args['id'];
+  $user_id = $_SESSION['id'];
+  $req = $this->db->prepare ("INSERT INTO comments VALUES (DEFAULT, '$user_id', '$article_id', :commentary, '$date')");
+  $req->execute(array(
+    'commentary' => $commentary));
+  $fetch = $req->fetch();
+  $article_view = $this->articles;
+  $comments_view = $this->comments;
+  return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view, 'display_comments' => $comments_view]);
+})->setName('comment');
+
+$app->post('/delete_comment/{id}', function(ServerRequestInterface $request,ResponseInterface $response,$args) {
+  $req = $this->db->prepare ("DELETE FROM comments WHERE id = :id");
+  $req->bindValue('id',$args['id']);
+  $req->execute();
+  $article_view = $this->articles;
+  $comments_view = $this->comments;
+  return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view, 'display_comments' => $comments_view]);
+})->setName('delete_comment');

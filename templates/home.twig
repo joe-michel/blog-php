@@ -50,18 +50,29 @@
   						<div class="card-footer text-muted">
   							{{ i.date }}
   						</div>
-  						<h5 class="text-left"> comments: </h2>
+  						<h5 class="text-left"> comments: </h5>
   						{% for j in display_comments %}
   							{% if i.id == j.article_id %}
 		  						<div class="card border-secondary mb-3">
 		  							<div class="card-body">
 		  								<p class="card-text text-left">{{j.content}}</p>
 		  							</div>
-		  							<div class="card-footer bg-transparent text-right">{{j.username}}{{i.date}}</div>
+		  							<div class="card-footer bg-transparent text-right">
+		  							{% if curl_result.label == 3 %}
+		  								<form method="post" action="{{ path_for('delete_comment',{'id':j.id}) }}" class="mt-2 mb-2 text-left">
+						  					<button type="submit" class="btn btn-danger" name="delete">Delete comment</button>
+						  				</form>
+		  							{% endif %}
+		  							{{j.username}}{{i.date}}</div>
 		  						</div>
 	  						{% endif %}
   						{% endfor %}
-
+  						{% if curl_result.label is defined %}
+  						<form method="post" action="{{ path_for('comment',{'id':i.id}) }}">
+  							<textarea type="text" name="commentary" placeholder="Type your comment here..." cols="45" rows="5"></textarea>
+  							<p><input type="submit" name="comment"></input></p>
+  						</form>
+  						{% endif %}
   					</div>
   				</div>
   			</div>
