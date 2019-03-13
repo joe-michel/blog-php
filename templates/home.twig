@@ -21,14 +21,17 @@
   			</div>
   			<div class="card-footer text-muted text-right">
   				{% if curl_result.label == 3 %}
-
-	  				<button type="submit" class="btn btn-success" data-toggle="modal" data-target="#editModal{{i.id}}">Edit Article</button>
-	  				
-	  				<form method="post" action="{{ path_for('delete_article',{'id':i.id}) }}" class="mt-2 mb-2 text-left">
-	  					<button type="submit" class="btn btn-danger" name="delete">Delete Article</button>
-	  				</form>
+  					<div class="text-left d-inline">
+		  				<button type="submit" class="btn btn-success d-inline btn-sm" data-toggle="modal" data-target="#editModal{{i.id}}">Edit Article</button>
+		  				
+		  				<form method="post" action="{{ path_for('delete_article',{'id':i.id}) }}" class="mt-2 mb-2 d-inline">
+		  					<button type="submit" class="btn btn-danger btn-sm" name="delete">Delete Article</button>
+		  				</form>
+		  			</div>
   				{% endif %}
-  				<a href="#" class="mr-2"  data-toggle="modal" data-target="#articleModal{{i.id}}">show comments</a> {{ i.date }}
+  				<div class="d-inline">
+  					<a href="#" class="mr-2"  data-toggle="modal" data-target="#articleModal{{i.id}}">show comments</a> {{ i.date }}
+  				</div>
   			</div>
   		</div>
 	   </li>
