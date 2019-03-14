@@ -14,10 +14,10 @@ return [
             ],
             // Database connection settings
             'db' => [
-                'host' => 'locahost',
-                'dbname' => 'becode',
-                'user' => 'becode',
-                'pass' => 'becode'
+                'host' => 'jepsen.local',
+                'dbname' => 'lcantini',
+                'user' => 'lcantini',
+                'pass' => 'lcantini'
             ]
         ],
 ];

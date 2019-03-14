@@ -9,7 +9,7 @@ http://localhost:8000/
 ini_set('display_errors', true);
 
 // Require application bootstrap (=php file with the path of all the other required files)
-require __DIR__ . '/../bootstrap/app.php';
+require __DIR__ . '/bootstrap/app.php';
 
 
 // Run Slim
