@@ -2,117 +2,25 @@
 
 
 {% block content %}
-
+<!-- global content -->
 <div class="row">
+  <!-- lateral menu -->
   <div class="col-md-1">
     <ul class="nav flex-column">
-      <h5>Authors</h5>
+      <h5 class="text-center">Authors</h5>
       {% for i in display_author %}
         <li class="nav-item">
-          <a class="nav-link" href="#">{{i.username}}</a>
+          <form class="nav-link" method="post" action="{{ path_for('sort',{'id':i.id}) }}">
+            <p><input  type="submit" class="btn btn-primary btn-sm" name="sort" value="{{i.username}}"></input></p>
+          </form>
         </li>
       {% endfor %}
     </ul>
   </div>
+
+  <!-- Main body -->
   <div class="col-md-11">
-    <ul>
-	   {% for i in display_article %}
-        <li>
-          <div class="card text-left mb-4">
-            <div class="card-header">
-              {{ i.username }}
-            </div>
-            <div class="card-body">
-              <h5 class="card-title text-center">{{ i.title }}</h5>
-              <p class="card-text">{{ i.content }}</p>
-            </div>
-            <div class="card-footer text-muted text-right">
-              {% if curl_result.label == 3 %}
-                <div class="text-left d-inline">
-                  <button type="submit" class="btn btn-success d-inline btn-sm" data-toggle="modal" data-target="#editModal{{i.id}}">Edit Article</button>
-                  <form method="post" action="{{ path_for('delete_article',{'id':i.id}) }}" class="mt-2 mb-2 d-inline">
-                    <button type="submit" class="btn btn-danger btn-sm" name="delete">Delete Article</button>
-                  </form>
-                </div>
-              {% endif %}
-              <div class="d-inline">
-                <a href="#" class="mr-2"  data-toggle="modal" data-target="#articleModal{{i.id}}">show comments</a> {{ i.date }}
-              </div>
-            </div>
-          </div>
-        </li>
-      	<!-- Modals -->
-      	<div class="modal fade" id="articleModal{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-      		<div class="modal-dialog modal-lg" role="document">
-      			<div class="modal-content">
-      				<div class="modal-body">
-      					<div class="card text-center mb-4">
-      						<div class="card-header">
-      							{{ i.username }}
-      						</div>
-      						<div class="card-body">
-      							<h5 class="card-title">{{ i.title }}</h5>
-      							<p class="card-text">{{ i.content }}</p>
-      						</div>
-      						<div class="card-footer text-muted">
-      							{{ i.date }}
-      						</div>
-      						{% if curl_result.label is defined %}
-    	  						<h5 class="text-left mt-2">Add a new comment</h5>
-    	  						<form method="post" action="{{ path_for('comment',{'id':i.id}) }}">
-    	  							<textarea type="text" name="commentary" class="form-control" placeholder="Type your comment here..." cols="30" rows="2"></textarea>
-    	  							<p><input type="submit" class="btn btn-primary btn-sm mt-1" name="comment"></input></p>
-    	  						</form>
-    	  					{% endif %}
-      						<h5 class="text-left"> Comments: </h5>
-    	  						{% for j in display_comments %}
-    	  							{% if i.id == j.article_id %}
-    			  						<div class="card border-secondary mb-3">
-    			  							<div class="card-body">
-    			  								<p class="card-text text-left">{{j.content}}</p>
-    			  							</div>
-    			  							<div class="card-footer bg-transparent text-right">
-    			  							{% if curl_result.label == 3 %}
-    			  								<form method="post" action="{{ path_for('delete_comment',{'id':j.id}) }}" class="mt-2 mb-2 text-left d-inline">
-    							  					<button type="submit" class="btn btn-danger btn-sm" name="delete">Delete comment</button>
-    							  				</form>
-    			  							{% endif %}
-    			  							<p class="d-inline">{{j.username}} {{j.date}}</p></div>
-    			  						</div>
-    		  						{% endif %}
-    	  						{% endfor %}
-      					</div>
-      				</div>
-      			</div>
-      		</div>
-      	</div>
-      	<!-- Modals -->
-      	<div class="modal fade" id="editModal{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-      		<div class="modal-dialog modal-lg" role="document">
-      			<div class="modal-content">
-      				<div class="modal-body">
-      					<div class="card text-center mb-4">
-      						<div class="card-header">
-      							<h3>Article edition</h3>
-      						</div>
-      						<div class="card-body">
-      							<form method="post" action="{{ path_for('edit',{'id':i.id}) }}">
-    	  							<h5>New title</h5>
-    	  							<input type="text" class="form-control form-control-sm col-3 d-inline" name="title" value="{{ i.title }}"></input>
-    	  							<h5 class="mt-3">New content</h5>
-    	  							<textarea type="text" name="content" class="form-control" cols="55" rows="7.5">{{ i.content }}</textarea>
-    	  							<p><input  type="submit" class="btn btn-primary btn-sm" name="edit"></input></p>
-      							</form>
-      						</div>
-      						<div class="card-footer text-muted">
-      						</div>
-      					</div>
-      				</div>
-      			</div>
-      		</div>
-      	</div>
-     {% endfor %}
-    </ul>
+    {% block homeContent %} {% endblock %}
   </div>
 </div>
 

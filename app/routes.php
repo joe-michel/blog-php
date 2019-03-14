@@ -16,7 +16,7 @@ $app->get('/',function(ServerRequestInterface $request,ResponseInterface $respon
   $article_view = $this->articles;
   $comments_view = $this->comments;
   $authors_view = $this->authors;
-  return $this->view->render($response, 'home.twig', ['display_article' => $article_view, 'display_comments' => $comments_view, 'display_author' => $authors_view]);
+  return $this->view->render($response, 'articles.twig', ['display_article' => $article_view, 'display_comments' => $comments_view, 'display_author' => $authors_view]);
 });
 
 $app->post('/log', function(ServerRequestInterface $request,ResponseInterface $response, $args) {
@@ -33,12 +33,12 @@ $app->post('/log', function(ServerRequestInterface $request,ResponseInterface $r
   $isPasswordOk = password_verify($password, $fetch['password']);
   if (!$isPasswordOk) {
     echo "Le nom d'utilisateur ou le mot de passe est incorrect";
-    return $this->view->render($response, 'home.twig', ['display_article' => $article_view, 'display_comments' => $comments_view, 'display_author' => $authors_view]);
+    return $this->view->render($response, 'articles.twig', ['display_article' => $article_view, 'display_comments' => $comments_view, 'display_author' => $authors_view]);
   } else {
       $_SESSION['id'] = $fetch['id'];
       $_SESSION['label'] = $fetch['label_id'];
       $_SESSION['username'] = $username;
-      return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view, 'display_comments' => $comments_view, 'display_author' => $authors_view]);
+      return $this->view->render($response, 'articles.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view, 'display_comments' => $comments_view, 'display_author' => $authors_view]);
     }
 })->setName('log');
 
@@ -57,7 +57,7 @@ $app->post('/signup',function(ServerRequestInterface $request,ResponseInterface 
     'password' => $password));
   $fetch = $req->fetch();
   $_SESSION['username'] = $username;
-  return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view, 'display_comments' => $comments_view, 'display_author' => $authors_view]);
+  return $this->view->render($response, 'articles.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view, 'display_comments' => $comments_view, 'display_author' => $authors_view]);
 })->setName('signup');
 
 $app->post('/disconnect',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
@@ -65,7 +65,7 @@ $app->post('/disconnect',function(ServerRequestInterface $request,ResponseInterf
   $comments_view = $this->comments;
   $authors_view = $this->authors;
   session_destroy();
-  return $this->view->render($response, 'home.twig', ['display_article' => $article_view, 'display_comments' => $comments_view, 'display_author' => $authors_view]);
+  return $this->view->render($response, 'articles.twig', ['display_article' => $article_view, 'display_comments' => $comments_view, 'display_author' => $authors_view]);
 })->setName('disconnect');
 
 $app->post('/dash',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
@@ -73,12 +73,12 @@ $app->post('/dash',function(ServerRequestInterface $request,ResponseInterface $r
   return $this->view->render($response, 'dashboard.twig', ['curl_result' => $_SESSION, 'user_view' => $user_view, 'page_name' => 'dashboard']);
 })->setName('dash');
 
-// button from dashboard.twig to load home.twig
+// button from dashboard.twig to load articles.twig
 $app->post('/leaveDash',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
   $article_view = $this->articles;
   $comments_view = $this->comments;
   $authors_view = $this->authors;
-  return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view, 'display_comments' => $comments_view, 'display_author' => $authors_view]);
+  return $this->view->render($response, 'articles.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view, 'display_comments' => $comments_view, 'display_author' => $authors_view]);
 })->setName('leaveDash');
 
 /*$app->post('/confirm-users',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
@@ -100,7 +100,7 @@ $app->post('/new_article',function(ServerRequestInterface $request,ResponseInter
   $article_view = $this->articles;
   $comments_view = $this->comments;
   $authors_view = $this->authors;
-  return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view, 'display_comments' => $comments_view, 'display_author' => $authors_view]);
+  return $this->view->render($response, 'articles.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view, 'display_comments' => $comments_view, 'display_author' => $authors_view]);
 })->setName('new_article');
 
 $app->post('/delete_article/{id}', function(ServerRequestInterface $request,ResponseInterface $response,$args) {
@@ -110,7 +110,7 @@ $app->post('/delete_article/{id}', function(ServerRequestInterface $request,Resp
   $article_view = $this->articles;
   $comments_view = $this->comments;
   $authors_view = $this->authors;
-  return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view, 'display_comments' => $comments_view, 'display_author' => $authors_view]);
+  return $this->view->render($response, 'articles.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view, 'display_comments' => $comments_view, 'display_author' => $authors_view]);
 })->setName('delete_article');
 
 $app->post('/edit/{id}', function(ServerRequestInterface $request,ResponseInterface $response,$args) {
@@ -125,7 +125,7 @@ $app->post('/edit/{id}', function(ServerRequestInterface $request,ResponseInterf
   $article_view = $this->articles;
   $comments_view = $this->comments;
   $authors_view = $this->authors;
-  return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view, 'display_comments' => $comments_view, 'display_author' => $authors_view]);
+  return $this->view->render($response, 'articles.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view, 'display_comments' => $comments_view, 'display_author' => $authors_view]);
 })->setName('edit');
 
 $app->post('/comment/{id}', function(ServerRequestInterface $request,ResponseInterface $response,$args) {
@@ -140,7 +140,7 @@ $app->post('/comment/{id}', function(ServerRequestInterface $request,ResponseInt
   $article_view = $this->articles;
   $comments_view = $this->comments;
   $authors_view = $this->authors;
-  return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view, 'display_comments' => $comments_view, 'display_author' => $authors_view]);
+  return $this->view->render($response, 'articles.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view, 'display_comments' => $comments_view, 'display_author' => $authors_view]);
 })->setName('comment');
 
 $app->post('/delete_comment/{id}', function(ServerRequestInterface $request,ResponseInterface $response,$args) {
@@ -150,5 +150,15 @@ $app->post('/delete_comment/{id}', function(ServerRequestInterface $request,Resp
   $article_view = $this->articles;
   $comments_view = $this->comments;
   $authors_view = $this->authors;
-  return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view, 'display_comments' => $comments_view, 'display_author' => $authors_view]);
+  return $this->view->render($response, 'articles.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view, 'display_comments' => $comments_view, 'display_author' => $authors_view]);
 })->setName('delete_comment');
+
+$app->post('/sort/{id}', function(ServerRequestInterface $request,ResponseInterface $response,$args) {
+    $id = $args['id'];
+    $req = $this->db->prepare ("SELECT * FROM articles INNER JOIN users ON articles.author_id = users.id WHERE users.id = '$id';");
+    $req->execute();
+    $sort_authors = $req->fetchAll();
+    $comments_view = $this->comments;
+    $authors_view = $this->authors;
+    return $this->view->render($response, 'articles.twig', ['curl_result' => $_SESSION, 'display_sort_article' => $sort_authors, 'display_comments' => $comments_view, 'display_author' => $authors_view, 'page_content' => 'sort']);
+})->setname('sort');
