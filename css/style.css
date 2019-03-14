@@ -70,6 +70,14 @@ footer{
     max-width: 2000px;
 }
 
+#homeButton{
+	border-style: none;
+	background-color: inherit;
+	outline: none;
+	color: grey;
+	font-size: 43px;
+}
+
 #navbarText{
 	display: flex;
 	justify-content: flex-end;
