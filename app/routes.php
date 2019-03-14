@@ -87,5 +87,8 @@ $app->post('/confirm-users',function(ServerRequestInterface $request,ResponseInt
     ));
   }
   //unset($i);//destroy the reference on the last element
+  $user_view = $this->users;
+  session_start();
+  return $this->view->render($response, 'dashboard.twig', ['curl_result' => $_SESSION, 'user_view' => $user_view, 'page_name' => 'dashboard']);
 });
 //end function to toggle user status user/author
