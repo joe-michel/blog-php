@@ -155,7 +155,7 @@ $app->post('/delete_comment/{id}', function(ServerRequestInterface $request,Resp
 
 $app->post('/sort/{id}', function(ServerRequestInterface $request,ResponseInterface $response,$args) {
     $id = $args['id'];
-    $req = $this->db->prepare ("SELECT articles.id, title, author_id, content, date FROM articles INNER JOIN users ON articles.author_id = users.id WHERE users.id = '$id';");
+    $req = $this->db->prepare ("SELECT articles.id, username, title, author_id, content, date FROM articles INNER JOIN users ON articles.author_id = users.id WHERE users.id = '$id';");
     $req->execute();
     $sort_authors = $req->fetchAll();
     $comments_view = $this->comments;
