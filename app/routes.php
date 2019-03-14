@@ -149,10 +149,10 @@ $app->post('/delete_comment/{id}', function(ServerRequestInterface $request,Resp
   $req->execute();
   $article_view = $this->articles;
   $comments_view = $this->comments;
-<<<<<<< HEAD
-  return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view, 'display_comments' => $comments_view]);
-})->setName('delete_comment');
-=======
+
+  /*return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view, 'display_comments' => $comments_view]);
+})->setName('delete_comment');*/
+
   $authors_view = $this->authors;
   return $this->view->render($response, 'articles.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view, 'display_comments' => $comments_view, 'display_author' => $authors_view]);
 })->setName('delete_comment');
@@ -184,4 +184,3 @@ $app->post('/confirm-users',function(ServerRequestInterface $request,ResponseInt
   return $this->view->render($response, 'dashboard.twig', ['curl_result' => $_SESSION, 'user_view' => $user_view, 'page_name' => 'dashboard']);
 });
 //end function to toggle user status user/author
->>>>>>> fce6438750f551c12cd75d1f1cf1504186b422d5
