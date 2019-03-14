@@ -75,19 +75,24 @@ session_start();
 return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION]);
 })->setName('home');
 
+//function to toggle user status user/author
 $app->post('/confirm-users',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
-  for ($i = 1 ; $i <= count($_POST); $i++){
-    $dataPost = $_POST['rad-'.$i];
-    list($user, $status) = explode("::", $dataPost);
-    echo $i;
-    echo $user . " ";
-    echo $status;
+  //for ($i = 1 ; $i <= count($_POST); $i++){
+  foreach ($_POST as $value) {
+    $dataPost = isset($value) ? $value : NULL;//check if the element exists
+    list($user, $status) = explode("::", $dataPost);//split values into two variables
+    //$user = intval($user);//convert into integer for db
+    //$status = intval($status);
+    echo '$_POST: '.$dataPost . " / ";
+    echo "user" . $user . " / ";
+    echo "status" .$status;
     echo "<br>";
-    $req = $this->db->prepare('UPDATE users SET label_id=:status WHERE username=:user');
+    $req = $this->db->prepare('UPDATE users SET label_id=:status WHERE id=:user');
     $req->execute(array(
       'user' => $user,
       'status' => $status,
     ));
   }
+  //unset($i);//destroy the reference on the last element
   //return $this->view->render($response, 'dashboard.twig', ['curl_result' => $_SESSION, 'user_view' => $user_view, 'page_name' => 'dashboard']);
 });
