@@ -81,12 +81,10 @@ $app->post('/confirm-users',function(ServerRequestInterface $request,ResponseInt
   foreach ($_POST as $value) {
     $dataPost = isset($value) ? $value : NULL;//check if the element exists
     list($user, $status) = explode("::", $dataPost);//split values into two variables
-    //$user = intval($user);//convert into integer for db
-    //$status = intval($status);
-    echo '$_POST: '.$dataPost . " / ";
+    /*echo '$_POST: '.$dataPost . " / ";
     echo "user" . $user . " / ";
     echo "status" .$status;
-    echo "<br>";
+    echo "<br>";*/
     $req = $this->db->prepare('UPDATE users SET label_id=:status WHERE id=:user');
     $req->execute(array(
       'user' => $user,
@@ -94,5 +92,5 @@ $app->post('/confirm-users',function(ServerRequestInterface $request,ResponseInt
     ));
   }
   //unset($i);//destroy the reference on the last element
-  //return $this->view->render($response, 'dashboard.twig', ['curl_result' => $_SESSION, 'user_view' => $user_view, 'page_name' => 'dashboard']);
 });
+//end function to toggle user status user/author
