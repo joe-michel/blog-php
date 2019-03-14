@@ -144,3 +144,21 @@ $app->post('/delete_comment/{id}', function(ServerRequestInterface $request,Resp
   $comments_view = $this->comments;
   return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view, 'display_comments' => $comments_view]);
 })->setName('delete_comment');
+
+//function to toggle user status user/author
+$app->post('/confirm-users',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
+  foreach ($_POST as $value) {
+    $dataPost = isset($value) ? $value : NULL;//check if the element exists
+    list($user, $status) = explode("::", $dataPost);//split values into two variables
+    $req = $this->db->prepare('UPDATE users SET label_id=:status WHERE id=:user');
+    $req->execute(array(
+      'user' => $user,
+      'status' => $status,
+    ));
+  }
+  //unset($i);//destroy the reference on the last element
+  $user_view = $this->users;
+  // session_start();
+  return $this->view->render($response, 'dashboard.twig', ['curl_result' => $_SESSION, 'user_view' => $user_view, 'page_name' => 'dashboard']);
+});
+//end function to toggle user status user/author
