@@ -155,10 +155,10 @@ $app->post('/delete_comment/{id}', function(ServerRequestInterface $request,Resp
 
 $app->post('/sort/{id}', function(ServerRequestInterface $request,ResponseInterface $response,$args) {
     $id = $args['id'];
-    $req = $this->db->prepare ("SELECT * FROM articles INNER JOIN users ON articles.author_id = users.id WHERE users.id = '$id';");
+    $req = $this->db->prepare ("SELECT articles.id, title, author_id, content, date FROM articles INNER JOIN users ON articles.author_id = users.id WHERE users.id = '$id';");
     $req->execute();
     $sort_authors = $req->fetchAll();
     $comments_view = $this->comments;
     $authors_view = $this->authors;
-    return $this->view->render($response, 'articles.twig', ['curl_result' => $_SESSION, 'display_sort_article' => $sort_authors, 'display_comments' => $comments_view, 'display_author' => $authors_view, 'page_content' => 'sort']);
+    return $this->view->render($response, 'authors.twig', ['curl_result' => $_SESSION, 'display_sort_article' => $sort_authors, 'display_comments' => $comments_view, 'display_author' => $authors_view, 'page_content' => 'sort']);
 })->setname('sort');
