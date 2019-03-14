@@ -71,8 +71,10 @@ $app->post('/dash',function(ServerRequestInterface $request,ResponseInterface $r
 // button from dashboard.twig to load home.twig
 $app->post('/leaveDash',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
 session_start();
-
-return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION]);
+$article_view = $this->articles;
+$_SESSION['username'] = $username;
+return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view]);
+//return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION]);
 })->setName('home');
 
 //function to toggle user status user/author
