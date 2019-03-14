@@ -77,14 +77,9 @@ return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION])
 
 //function to toggle user status user/author
 $app->post('/confirm-users',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
-  //for ($i = 1 ; $i <= count($_POST); $i++){
   foreach ($_POST as $value) {
     $dataPost = isset($value) ? $value : NULL;//check if the element exists
     list($user, $status) = explode("::", $dataPost);//split values into two variables
-    /*echo '$_POST: '.$dataPost . " / ";
-    echo "user" . $user . " / ";
-    echo "status" .$status;
-    echo "<br>";*/
     $req = $this->db->prepare('UPDATE users SET label_id=:status WHERE id=:user');
     $req->execute(array(
       'user' => $user,
