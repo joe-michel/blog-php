@@ -25,7 +25,7 @@ The delivery was provided on the following private server: [http://jepsen.local/
 
 * Use of PHP Slim Framework (routing / CRUD, PSR7 request objects, Forms...)
 * Use of Composer, vendors, namespaces
-* Use of Twig and container dependencies injection (DI))
+* Use of Twig and container dependencies injection (DI)
 * PHP Data Objects (PDO) to connect the database and bcrypt for password encryption
 * PostgreSQL database
 * Website and database deployment using scripts and Bash
@@ -36,7 +36,7 @@ According to your rights, you will be able to use some features:
 
 ### As unregistered user
 
-You can see the articles and commentaries, sort them by author, date or categories.
+You can see the articles and commentaries, sort them by author, date or categories. You can register using the button sign-up.
 
 ### As registered user
 
@@ -52,6 +52,8 @@ You have full rights! On the landing page you can add, modify or delete an artic
 Moreover, you can also change the right for existing users, so a user can become an author and vice-versa.
 
 ## Deploying the application (Back-end part)
+
+[to complete]
 
 ### Architecture of the website
 
