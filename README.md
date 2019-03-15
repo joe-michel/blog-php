@@ -24,7 +24,7 @@ The project started on **Monday 25th of February 2019** and the deadline was for
 * Use of PHP Slim Framework (routing / CRUD, PSR7 request objects, Forms...)
 * Use of Composer, vendors, namespaces
 * Use of Twig and container dependencies injection (DI))
-* PHP Data Objects (PDO) to connect the database
+* PHP Data Objects (PDO) to connect the database and bcrypt for password encryption
 * PostgreSQL database
 * Website and database deployment using scripts and Bash
 
@@ -34,11 +34,20 @@ According to your rights, you will be able to use some features:
 
 ### As unregistered user
 
+You can see the articles and commentaries, sort them by author, date or categories.
+
 ### As registered user
+
+You have one more feature: you can add comments! Your comment will be displayed under the articles with your user name. Comment can be deleted by the administrator so please civil. 
 
 ### As author
 
+As author you have the same features than above but you can also add articles! And your name will be displayed in the author list. You can choose one or more categories for your article.
+
 ### As administrator
+
+You have full rights! On the landing page you can add, modify or delete an article. You can also do that with the categories, authors or dates. For more convenience, you have access to a dashboard page that allows you to make these operations quickly and easily.
+Moreover, you can also change the right for existing users, so a user can become an author and vice-versa.
 
 ## Deploying the application (Back-end part)
 
