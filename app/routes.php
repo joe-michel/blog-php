@@ -160,6 +160,13 @@ $app->post('/delete_comment/{id}', function(ServerRequestInterface $request,Resp
   $req->execute();
   $article_view = $this->articles;
   $comments_view = $this->comments;
+<<<<<<< HEAD
+=======
+
+  /*return $this->view->render($response, 'home.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view, 'display_comments' => $comments_view]);
+})->setName('delete_comment');*/
+
+>>>>>>> 83840feee39fd6ea86a60fa97cc2fa45015a740d
   $authors_view = $this->authors;
   return $this->view->render($response, 'articles.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view, 'display_comments' => $comments_view, 'display_author' => $authors_view]);
 })->setName('delete_comment');
