@@ -50,3 +50,10 @@ $container['comments'] = function ($container) {
     $comments_view = $req->fetchAll();
     return $comments_view;
 };
+
+$container['all_articles'] = function ($container) {
+    $req = $container->db->prepare ('SELECT articles.id, title, author_id, content, username, date FROM articles INNER JOIN users ON users.id = articles.author_id ORDER BY articles.id DESC');
+    $req->execute();
+    $all_article_view = $req->fetchAll();
+    return $all_article_view;
+};

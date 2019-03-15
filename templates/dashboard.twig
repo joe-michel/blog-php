@@ -4,7 +4,7 @@
 {% block content %}
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-  <p>Admin page</p>
+  <h5>Admin page</h5>
   <ul>
     <form action="{{path_for}}/confirm-users" method="post" name="confirmUsers">
     	{% for i in user_view %}
@@ -30,6 +30,11 @@
     	{% endfor %}
       <input class="btn btn-primary" type="submit" value="Submit" target="_blank">
     </form>
+  </ul>
+  <ul id="articleList">
+    {% for i in display_all_article %}
+      <li>{{i.title}}</li>
+    {% endfor %}
   </ul>
 
 {% endblock %}

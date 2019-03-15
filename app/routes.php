@@ -70,7 +70,8 @@ $app->post('/disconnect',function(ServerRequestInterface $request,ResponseInterf
 
 $app->post('/dash',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
   $user_view = $this->users;
-  return $this->view->render($response, 'dashboard.twig', ['curl_result' => $_SESSION, 'user_view' => $user_view, 'page_name' => 'dashboard']);
+  $all_article_view = $this->all_articles;
+  return $this->view->render($response, 'dashboard.twig', ['curl_result' => $_SESSION, 'user_view' => $user_view, 'page_name' => 'dashboard', 'display_all_article' => $all_article_view]);
 })->setName('dash');
 
 // button from dashboard.twig to load articles.twig
