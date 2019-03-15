@@ -60,7 +60,7 @@
                       <div class="card-footer bg-transparent text-right">
                       {% if curl_result.label == 3 %}
                         <form method="post" action="{{ path_for('delete_comment',{'id':j.id}) }}" class="mt-2 mb-2 text-left d-inline">
-                          <button type="submit" class="btn btn-danger btn-sm" name="delete">Delete comment</button>
+                          <button type="submit" class="btn-delete btn-sm" name="delete">Delete comment</button>
                         </form>
                       {% endif %}
                       <p class="d-inline">{{j.username}} {{j.date}}</p></div>
