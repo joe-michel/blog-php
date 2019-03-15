@@ -71,7 +71,7 @@ $app->post('/disconnect',function(ServerRequestInterface $request,ResponseInterf
 $app->post('/dash',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
   $user_view = $this->users;
   $all_article_view = $this->all_articles;
-  return $this->view->render($response, 'dashboard.twig', ['curl_result' => $_SESSION, 'user_view' => $user_view, 'page_name' => 'dashboard', 'display_all_article' => $all_article_view]);
+  return $this->view->render($response, 'dashboard.twig', ['curl_result' => $_SESSION, 'user_view' => $user_view, 'page_name' => 'dashboard', 'display_all_article' => $all_article_view, 'page_name' => 'dashboard']);
 })->setName('dash');
 
 // button from dashboard.twig to load articles.twig
@@ -114,7 +114,7 @@ $app->post('/delete_article_dash/{id}', function(ServerRequestInterface $request
   $req->execute();
   $all_article_view = $this->all_articles;
   $user_view = $this->users;
-  return $this->view->render($response, 'dashboard.twig', ['curl_result' => $_SESSION, 'display_all_article' => $all_article_view, 'user_view' => $user_view]);
+  return $this->view->render($response, 'dashboard.twig', ['curl_result' => $_SESSION, 'display_all_article' => $all_article_view, 'user_view' => $user_view, 'page_name' => 'dashboard']);
 })->setName('delete_article_dash');
 
 $app->post('/edit/{id}', function(ServerRequestInterface $request,ResponseInterface $response,$args) {
@@ -143,7 +143,7 @@ $app->post('/edit_dash/{id}', function(ServerRequestInterface $request,ResponseI
   $fetch = $req->fetch();
   $all_article_view = $this->all_articles;
   $user_view = $this->users;
-  return $this->view->render($response, 'dashboard.twig', ['curl_result' => $_SESSION, 'display_all_article' => $all_article_view, 'user_view' => $user_view]);
+  return $this->view->render($response, 'dashboard.twig', ['curl_result' => $_SESSION, 'display_all_article' => $all_article_view, 'user_view' => $user_view, 'page_name' => 'dashboard']);
 })->setName('edit_dash');
 
 $app->post('/comment/{id}', function(ServerRequestInterface $request,ResponseInterface $response,$args) {
@@ -196,6 +196,6 @@ $app->post('/confirm-users',function(ServerRequestInterface $request,ResponseInt
   $user_view = $this->users;
   $all_article_view = $this->all_articles;
   // session_start();
-  return $this->view->render($response, 'dashboard.twig', ['curl_result' => $_SESSION, 'user_view' => $user_view, 'display_all_article' => $all_article_view,'page_name' => 'dashboard']);
+  return $this->view->render($response, 'dashboard.twig', ['curl_result' => $_SESSION, 'user_view' => $user_view, 'display_all_article' => $all_article_view, 'page_name' => 'dashboard']);
 });
 //end function to toggle user status user/author
