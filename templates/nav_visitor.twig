@@ -27,10 +27,10 @@
                 <div class="modal-body">
                   <form method="post" action="{{ path_for('signup') }}">
                     <p>Which username do you want? Evil one I hope</p>
-                    <input type="text" name="username"></input>
+                    <input class="form-control mr-2 form-control-sm" type="text" name="username" required></input>
 
                     <p>Choose a password, don't mess it up it's important</p>
-                    <input type="password" name="password"></input>
+                    <input class="form-control mr-2 form-control-sm" type="password" name="password" required></input>
 
                     <p><input  type="submit" class="btn btn-primary btn-sm mt-2" name="log"></input></p>
                   </form>
