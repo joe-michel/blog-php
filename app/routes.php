@@ -81,12 +81,6 @@ $app->post('/leaveDash',function(ServerRequestInterface $request,ResponseInterfa
   return $this->view->render($response, 'articles.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view, 'display_comments' => $comments_view, 'display_author' => $authors_view]);
 })->setName('leaveDash');
 
-/*$app->post('/confirm-users',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
-  //doesn't work => we must retrieve datas from the form
-  $dataUser = ['confirm-users' => $request->getParam('confirm-users')];
-  //then send them to Database
-});*/
-
 $app->post('/new_article',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
   $title = $request->getParam('title');
   $content = $request->getParam('content');

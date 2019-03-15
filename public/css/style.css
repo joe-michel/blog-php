@@ -1,10 +1,16 @@
 html, body{
 	background-color: #efefef;
+	background-image: url(https://computersplace.net/images/minimalism-19.jpg);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-attachment: fixed;
+	background-position: center;
 	font-family: 'Open Sans';
 	font-size: 16px;
 	font-size: 1em;
 	font-size: 100%;
 	color: #777;
+
 }
 
 hr{
@@ -20,7 +26,7 @@ hr{
 	width: 100%;
 	margin: 0 auto;
 	padding: 0em 1em;
-	background-color: white;
+	background-color: rgba(0,0,0,0.5);
 	font-size: 0.9em;
 }
 
@@ -63,11 +69,7 @@ footer{
 	text-align: center;
 	border-top: 1px solid #eee;
 	padding: 1em 0;
-}
-
-@media (min-width: 1500px)
-.container {
-    max-width: 2000px;
+	color: white;
 }
 
 #homeButton{
@@ -85,4 +87,21 @@ footer{
 
 li{
 	list-style-type: none;
+}
+
+.authorButton{
+	background-color: rgba(0,0,0,0.3);
+	border-style: none;
+	outline: none;
+	font-weight: bolder;
+	color: white;
+	border-radius: 5px;
+}
+
+h5{
+	color: white;
+}
+
+#navbar{
+	background-color: rgba(255,255,255,0.1);
 }
