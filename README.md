@@ -115,7 +115,6 @@ Object setting to indicate to the application where to find our twig templates +
 
 Slim Application setting and bootstrapping.
 
-
 **--templates/partial--**
 
 Common parts of the twig templates.
