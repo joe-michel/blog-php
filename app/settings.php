@@ -2,7 +2,7 @@
 
 return [
         'settings' => [
-            'displayErrorDetails' => true,
+            'displayErrorDetails' => false,
             // Twig templates settings
             'view' => [
                 'path' => __DIR__ . '/../templates',
