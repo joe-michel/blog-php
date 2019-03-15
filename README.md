@@ -12,7 +12,7 @@
 
 ## Goal of the exercice
 
-We had to create a client server application that allow users to post articles, comment them or delete them according their user rights. The feature requested are those usually encountered in blogs.
+We had to create a client server application that allows users to post articles, comment them or delete them according their user rights. The feature requested are those usually encountered in blogs.
 
 Our client were our Becode coaches:
 [Nicolas Vanhoren](https://github.com/nicolas-van) and [Nicolas 'Jule' Jamar](https://github.com/NicolasJamar)
