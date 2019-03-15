@@ -14,7 +14,7 @@
 
 We had to create a client server application that allows users to post articles, comment them or delete them according their user rights. The feature requested are those usually encountered in blogs.
 
-Our client were our Becode coaches:
+Our clients were our Becode coaches:
 [Nicolas Vanhoren](https://github.com/nicolas-van) and [Nicolas 'Jule' Jamar](https://github.com/NicolasJamar)
 
 The project started on **Monday 25th of February 2019** and the deadline was for **Friday 15th of March 2019**.
