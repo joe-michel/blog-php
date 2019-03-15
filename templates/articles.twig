@@ -7,11 +7,11 @@
         <li>
           <div class="card text-left mb-4">
             <div class="card-header">
-              {{ i.username }}
+              <p class="text-muted">{{ i.username }}</p>
             </div>
             <div class="card-body">
-              <h5 class="card-title text-center">{{ i.title }}</h5>
-              <p class="card-text">{{ i.content }}</p>
+              <h5 class="card-title text-center text-muted">{{ i.title }}</h5>
+              <p class="card-text text-muted">{{ i.content }}</p>
             </div>
             <div class="card-footer text-muted text-right">
               {% if curl_result.label == 3 %}
