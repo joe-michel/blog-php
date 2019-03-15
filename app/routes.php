@@ -81,7 +81,8 @@ $app->post('/disconnect',function(ServerRequestInterface $request,ResponseInterf
 
 $app->post('/dash',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
   $user_view = $this->users;
-  return $this->view->render($response, 'dashboard.twig', ['curl_result' => $_SESSION, 'user_view' => $user_view, 'page_name' => 'dashboard']);
+  $all_article_view = $this->all_articles;
+  return $this->view->render($response, 'dashboard.twig', ['curl_result' => $_SESSION, 'user_view' => $user_view, 'page_name' => 'dashboard', 'display_all_article' => $all_article_view, 'page_name' => 'dashboard']);
 })->setName('dash');
 
 // button from dashboard.twig to load articles.twig
@@ -91,12 +92,6 @@ $app->post('/leaveDash',function(ServerRequestInterface $request,ResponseInterfa
   $authors_view = $this->authors;
   return $this->view->render($response, 'articles.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view, 'display_comments' => $comments_view, 'display_author' => $authors_view]);
 })->setName('leaveDash');
-
-/*$app->post('/confirm-users',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
-  //doesn't work => we must retrieve datas from the form
-  $dataUser = ['confirm-users' => $request->getParam('confirm-users')];
-  //then send them to Database
-});*/
 
 $app->post('/new_article',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
   $title = $request->getParam('title');
@@ -124,6 +119,15 @@ $app->post('/delete_article/{id}', function(ServerRequestInterface $request,Resp
   return $this->view->render($response, 'articles.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view, 'display_comments' => $comments_view, 'display_author' => $authors_view]);
 })->setName('delete_article');
 
+$app->post('/delete_article_dash/{id}', function(ServerRequestInterface $request,ResponseInterface $response,$args) {
+  $req = $this->db->prepare ("DELETE FROM articles WHERE id = :id");
+  $req->bindValue('id',$args['id']);
+  $req->execute();
+  $all_article_view = $this->all_articles;
+  $user_view = $this->users;
+  return $this->view->render($response, 'dashboard.twig', ['curl_result' => $_SESSION, 'display_all_article' => $all_article_view, 'user_view' => $user_view, 'page_name' => 'dashboard']);
+})->setName('delete_article_dash');
+
 $app->post('/edit/{id}', function(ServerRequestInterface $request,ResponseInterface $response,$args) {
   $title = $request->getParam('title');
   $content = $request->getParam('content');
@@ -138,6 +142,20 @@ $app->post('/edit/{id}', function(ServerRequestInterface $request,ResponseInterf
   $authors_view = $this->authors;
   return $this->view->render($response, 'articles.twig', ['curl_result' => $_SESSION, 'display_article' => $article_view, 'display_comments' => $comments_view, 'display_author' => $authors_view]);
 })->setName('edit');
+
+$app->post('/edit_dash/{id}', function(ServerRequestInterface $request,ResponseInterface $response,$args) {
+  $title = $request->getParam('title');
+  $content = $request->getParam('content');
+  $id = $args['id'];
+  $req = $this->db->prepare ("UPDATE articles SET title = :title, content = :content WHERE id='$id'");
+  $req->execute(array(
+    'title' => $title,
+    'content' => $content));
+  $fetch = $req->fetch();
+  $all_article_view = $this->all_articles;
+  $user_view = $this->users;
+  return $this->view->render($response, 'dashboard.twig', ['curl_result' => $_SESSION, 'display_all_article' => $all_article_view, 'user_view' => $user_view, 'page_name' => 'dashboard']);
+})->setName('edit_dash');
 
 $app->post('/comment/{id}', function(ServerRequestInterface $request,ResponseInterface $response,$args) {
   $commentary = $request->getParam('commentary');
@@ -194,7 +212,8 @@ $app->post('/confirm-users',function(ServerRequestInterface $request,ResponseInt
   }
   //unset($i);//destroy the reference on the last element
   $user_view = $this->users;
+  $all_article_view = $this->all_articles;
   // session_start();
-  return $this->view->render($response, 'dashboard.twig', ['curl_result' => $_SESSION, 'user_view' => $user_view, 'page_name' => 'dashboard']);
+  return $this->view->render($response, 'dashboard.twig', ['curl_result' => $_SESSION, 'user_view' => $user_view, 'display_all_article' => $all_article_view, 'page_name' => 'dashboard']);
 });
 //end function to toggle user status user/author

@@ -42,7 +42,7 @@ CREATE SEQUENCE users_id_seq INCREMENT 1 MINVALUE 1 MAXVALUE 2147483647 START 1 
 
 CREATE TABLE "public"."users" (
     "id" integer DEFAULT nextval('users_id_seq') NOT NULL,
-    "username" character varying,
+    "username" character varying UNIQUE,
     "password" character varying,
     "label_id" integer,
     CONSTRAINT "users_pkey" PRIMARY KEY ("id"),

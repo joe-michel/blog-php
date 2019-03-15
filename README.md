@@ -1,25 +1,61 @@
 
-# Becode  JEPSEN LG - PHP with Slim 3 Framework
+# Becode  JEPSEN LG - Create your blog!
 
 ![Becode logo](img/becode-logo.png)
 
-Environment prototype that can be used for the group exercice
+## Contributors
 
-## This prototype covers
+- [Louis Cantinieaux](https://github.com/LouisCantinieaux)
+- [Vincent Chilot](https://github.com/Raigyo)
+- [Mathieu Jasselette](https://github.com/MatthieuJasselette)
+- [Joé Michel](https://github.com/joe-michel)
 
-* Use of Slim Framework (routing / CRUD, MVC, PSR7 request objects, Forms...)
+## Goal of the exercice
+
+We had to create a client server application that allows users to post articles, comment them or delete them according their user rights. The feature requested are those usually encountered in blogs.
+
+Our clients were our Becode coaches:
+[Nicolas Vanhoren](https://github.com/nicolas-van) and [Nicolas 'Jules' Jamar](https://github.com/NicolasJamar)
+
+The project started on **Monday 25th of February 2019** and the deadline was for **Friday 15th of March 2019**.
+
+The delivery was provided on the following private server: [http://jepsen.local/~lcantini/](http://jepsen.local/~lcantini/)
+
+## Technologies covered by the exercise
+
+* Use of PHP Slim Framework (routing / CRUD, PSR7 request objects, Forms...)
 * Use of Composer, vendors, namespaces
-* Use of Twig and container dependencies injection (DI))
-* PHP Data Objects (PDO) connecting to PostgreSQL
+* Use of Twig and container dependencies injection (DI)
+* PHP Data Objects (PDO) to connect the database and bcrypt for password encryption
+* PostgreSQL database
+* Website and database deployment using scripts and Bash
 
-# Contributors
+## Using the application (Front-end part)
 
-- Louis Cantinieaux
-- Mathieu Jasselette
-- Vincent Chilot
-- Joé Michel
+According to your rights, you will be able to use some features:
 
-### Architecture
+### As unregistered user
+
+You can see the articles and commentaries, sort them by author, date or categories. You can register using the button sign-up.
+
+### As registered user
+
+You have one more feature: you can add comments! Your comment will be displayed under the articles with your user name. Comment can be deleted by the administrator so please remain civil.
+
+### As author
+
+As author you have the same features than above but you can also add articles! And your name will be displayed in the author list. You can choose one or more categories for your article.
+
+### As administrator
+
+You have full rights! On the landing page you can add, modify or delete an article. You can also do that with the categories, authors or dates. For more convenience, you have access to a dashboard page that allows you to make these operations quickly and easily.
+Moreover, you can also change the right for existing users, so a user can become an author and vice-versa.
+
+## Deploying the application (Back-end part)
+
+[to complete]
+
+### Architecture of the website
 
 ├── app
 
@@ -33,17 +69,9 @@ Environment prototype that can be used for the group exercice
 
 │   └── app.php
 
-├── cache
+├── css
 
-├── img
-
-├── public
-
-│   ├── css
-
-│   │   └── style.css
-
-│   └── index.php
+│   └── style.css
 
 ├── templates
 
@@ -71,76 +99,50 @@ Environment prototype that can be used for the group exercice
 
 ├── composer.lock
 
+├── composer.phar
+
+├── deploy.sh
+
+├── index.php
+
+├── installer
+
+├── package-lock.json
+
 └── README.md
 
 
 **--app/dependencies--**
 
-Container service for Twig-Views & DB connection
+Container service for Twig-Views, DB connection and SQL request results.
 
 **--app/routes--**
 
-PSR 7 request object + routing
+PSR 7 request object + routing and functions displaying content according user actions.
 
 **--app/settings--**
 
-Object setting to indicate to the application where to find our twig templates + object to define DB Settings
+Object setting to indicate to the application where to find our twig templates + object to define DB Settings.
 
 **--bootstrap/app--**
 
-Slim Application setting and bootstrapping
-
-**--public/index--**
-
-Landing page, launch bootsrap and the application
+Slim Application setting and bootstrapping.
 
 **--templates/partial--**
 
-Common parts of the twig templates
+Common parts of the twig templates.
 
 **--templates--**
 
-Templates for each page + general layout
+Templates for each page + general layout.
 
-### Prerequisites
+**--index--**
 
-**Require: PHP 7.3**
+Landing page, launch bootstrap and the application.
 
-[Composer](https://getcomposer.org/) is not required if you don't plan to add dependencies or dump autoload with new namespaces
 
-If you add namespaces in vendor/autoload.php use: *composer dump-autoload*
-
-You will need to add PDO for Postgress:
-
-*apt-get install php-pgsql*
-
-**You will need a PostgreSQL running to access the DB using PDO**
-
-Use this docker file: [docker-compose-postgres](https://github.com/becodeorg/LIE-Jepsen-1.9/tree/master/02-the-hill/docker-compose-postgres)
-
-*docker-compose up*
-
-Launch it using the following link: [http://localhost:9000](http://localhost:9000)
-
-Import this database in it [https://github.com/Raigyo/slim-proto/tree/wip/_pgsql-db](https://github.com/Raigyo/slim-proto/tree/wip/_pgsql-db)
-
-### Running the application
-
-Clone, go in the root (of this application) and launch the php server with:
-
-*php -S localhost:8000 -t public/*
-
-Then run the application in your browser: http://localhost:8000/
-
-### Sources and documentation
+## Sources and documentation
 
 [Slim documentation](http://www.slimframework.com/docs/)
 
-[zooboole's Github](https://github.com/zooboole)
-
-[zooboole's tutorial](https://phpocean.com/tutorials/back-end/workouts-with-slim-3-create-a-simple-website/48)
-
-[Dev.to](https://dev.to/charliedevelops/getting-started-with-slim-php-framework-by-building-a-very-simple-mvcoop-app-4j2b)
-
-
-mr_satan was here
+[The workshop of Marco De Bona and Valentin Grégoire from Becode/Hamilton about Bash and scripting](https://github.com/AnarionBe/BashIt)

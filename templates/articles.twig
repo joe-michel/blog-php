@@ -1,24 +1,24 @@
 {% extends 'home.twig' %}
 
 {% block homeContent %}
-  <ul>
+  <ul class="mr-3">
      {% for i in display_article %}
      <!-- article on home page -->
         <li>
           <div class="card text-left mb-4">
             <div class="card-header">
-              {{ i.username }}
+              <p class="text-muted">{{ i.username }}</p>
             </div>
             <div class="card-body">
-              <h5 class="card-title text-center">{{ i.title }}</h5>
-              <p class="card-text">{{ i.content }}</p>
+              <h5 class="card-title text-center text-muted">{{ i.title }}</h5>
+              <p class="card-text text-muted">{{ i.content }}</p>
             </div>
             <div class="card-footer text-muted text-right">
               {% if curl_result.label == 3 %}
                 <div class="text-left d-inline">
-                  <button type="submit" class="btn btn-success d-inline btn-sm" data-toggle="modal" data-target="#editModal{{i.id}}">Edit Article</button>
+                  <button type="submit" class="btn-edit d-inline btn-sm" data-toggle="modal" data-target="#editModal{{i.id}}">Edit Article</button>
                   <form method="post" action="{{ path_for('delete_article',{'id':i.id}) }}" class="mt-2 mb-2 d-inline">
-                    <button type="submit" class="btn btn-danger btn-sm" name="delete">Delete Article</button>
+                    <button type="submit" class="btn-delete btn-sm" name="delete">Delete Article</button>
                   </form>
                 </div>
               {% endif %}
@@ -61,7 +61,7 @@
                           <div class="card-footer bg-transparent text-right">
                           {% if curl_result.label == 3 %}
                             <form method="post" action="{{ path_for('delete_comment',{'id':j.id}) }}" class="mt-2 mb-2 text-left d-inline">
-                              <button type="submit" class="btn btn-danger btn-sm" name="delete">Delete comment</button>
+                              <button type="submit" class="btn-delete btn-sm" name="delete">Delete comment</button>
                             </form>
                           {% endif %}
                           <p class="d-inline">{{j.username}} {{j.date}}</p></div>
@@ -88,7 +88,7 @@
                       <input type="text" class="form-control form-control-sm col-3 d-inline" name="title" value="{{ i.title }}"></input>
                       <h5 class="mt-3">New content</h5>
                       <textarea type="text" name="content" class="form-control" cols="55" rows="7.5">{{ i.content }}</textarea>
-                      <p><input  type="submit" class="btn btn-primary btn-sm" name="edit"></input></p>
+                      <p><input  type="submit" class="btn btn-primary btn-sm mt-2" name="edit"></input></p>
                     </form>
                   </div>
                   <div class="card-footer text-muted">
