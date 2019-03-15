@@ -25,7 +25,7 @@ hr{
 .container{
 	width: 100%;
 	margin: 0 auto;
-	padding: 0em 1em;
+	padding: 0!important;
 	background-color: rgba(0,0,0,0.5);
 	font-size: 0.9em;
 }
@@ -76,13 +76,17 @@ footer{
 	border-style: none;
 	background-color: inherit;
 	outline: none;
-	color: grey;
+	color: white;
 	font-size: 43px;
 }
 
 #navbarText{
 	display: flex;
 	justify-content: flex-end;
+}
+
+.navbar-text{
+	color: white!important;
 }
 
 li{
@@ -107,9 +111,47 @@ h5{
 }
 
 #navbar{
-	background-color: rgba(255,255,255,0.1);
+	background-color: rgba(0,0,0,0.5)!important;
 }
 
-#articleList{
-	color: white;
+.btn{
+	background-color: black!important;
+	border-color: rgba(255,255,255,0.3)!important;
+	border-radius: 5px!important;
+}
+
+.btn:hover{
+	border-color: white!important;
+}
+
+.btn-edit{
+	background-color: #1e824c;
+	color: black;
+	border: solid 2px black;
+	border-radius: 5px!important;
+	font-weight: bolder;
+}
+
+.btn-delete{
+	background-color: #d64541;
+	color: black;
+	border: solid 2px black;
+	border-radius: 5px!important;
+	font-weight: bolder;
+}
+
+.btn-edit:hover{
+	background-color: #019C01;
+}
+
+.btn-delete:hover{
+	background-color: #ED5015;
+}
+
+.card{
+	background-color: rgba(255,255,255,0.8)!important;
+}
+
+.card h5{
+	color: black!important;
 }
