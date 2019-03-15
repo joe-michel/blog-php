@@ -4,7 +4,7 @@
 <ul>
  {% for i in display_sort_article %}
     <li>
-      <div class="card text-left mb-4">
+      <div class="card text-left mb-4 mr-3">
         <div class="card-header">
           {{ i.username }}
         </div>
@@ -15,9 +15,9 @@
         <div class="card-footer text-muted text-right">
           {% if curl_result.label == 3 %}
             <div class="text-left d-inline">
-              <button type="submit" class="btn btn-success d-inline btn-sm" data-toggle="modal" data-target="#editModal{{i.id}}">Edit Article</button>
+              <button type="submit" class="btn-edit d-inline btn-sm" data-toggle="modal" data-target="#editModal{{i.id}}">Edit Article</button>
               <form method="post" action="{{ path_for('delete_article',{'id':i.id}) }}" class="mt-2 mb-2 d-inline">
-                <button type="submit" class="btn btn-danger btn-sm" name="delete">Delete Article</button>
+                <button type="submit" class="btn-delete btn-sm" name="delete">Delete Article</button>
               </form>
             </div>
           {% endif %}
