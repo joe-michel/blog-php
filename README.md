@@ -38,7 +38,7 @@ You can see the articles and commentaries, sort them by author, date or categori
 
 ### As registered user
 
-You have one more feature: you can add comments! Your comment will be displayed under the articles with your user name. Comment can be deleted by the administrator so please civil. 
+You have one more feature: you can add comments! Your comment will be displayed under the articles with your user name. Comment can be deleted by the administrator so please remain civil. 
 
 ### As author
 
