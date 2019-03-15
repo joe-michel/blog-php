@@ -99,7 +99,7 @@
   <!-- authors dashboard -->
   <div class="" style="width:30%;">
     <ul>
-      <form action="{{path_for}}/confirm-users" method="post" name="confirmUsers">
+      <form action="{{path_for('confirm-users')}}" method="post" name="confirmUsers">
       	{% for i in user_view %}
         {% set counter = ( counter | default(0) ) + 1 %}
           {% if i.user_label != "admin" %}
