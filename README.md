@@ -19,6 +19,8 @@ Our client are our Becode coaches:
 
 The project started on **Monday 25th of February 2019** and the deadline was for **Friday 15th of March 2019**.
 
+The delivery was provided on the following private server: [http://jepsen.local/~lcantini/](http://jepsen.local/~lcantini/)
+
 ## Technologies covered by the exercise
 
 * Use of PHP Slim Framework (routing / CRUD, PSR7 request objects, Forms...)
@@ -38,7 +40,7 @@ You can see the articles and commentaries, sort them by author, date or categori
 
 ### As registered user
 
-You have one more feature: you can add comments! Your comment will be displayed under the articles with your user name. Comment can be deleted by the administrator so please remain civil. 
+You have one more feature: you can add comments! Your comment will be displayed under the articles with your user name. Comment can be deleted by the administrator so please remain civil.
 
 ### As author
 
