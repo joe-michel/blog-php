@@ -15,9 +15,9 @@
             <h6 class="card-subtitle mb-2 text-muted">{{ i.title }}</h6>
             <h6 class="card-subtitle mb-2 text-muted">{{i.date}}</h6>
             <div class="text-left d-inline">
-              <button type="submit" class="btn btn-success d-inline btn-sm" data-toggle="modal" data-target="#editModal{{i.id}}">Edit Article</button>
+              <button type="submit" class=" btn-edit d-inline btn-sm" data-toggle="modal" data-target="#editModal{{i.id}}">Edit Article</button>
               <form method="post" action="{{ path_for('delete_article_dash',{'id':i.id}) }}" class="mt-2 mb-2 d-inline">
-                <button type="submit" class="btn btn-danger btn-sm" name="delete">Delete Article</button>
+                <button type="submit" class="btn-delete btn-sm" name="delete">Delete Article</button>
               </form>
             </div>
           </div>
