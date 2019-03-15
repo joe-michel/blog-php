@@ -30,7 +30,7 @@ The project started on **Monday 25th of February 2019** and the deadline was for
 
 ## Using the application (Front-end part)
 
-According to your rights, will be able to use some features:
+According to your rights, you will be able to use some features:
 
 ### As unregistered user
 
