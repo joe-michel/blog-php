@@ -17,7 +17,7 @@ Create a client server application that allow users to post articles, comment th
 Our client are our Becode coaches:
 [Nicolas Vanhoren](https://github.com/nicolas-van) and [Nicolas 'Jule' Jamar](https://github.com/NicolasJamar)
 
-The project started on **Monday 25th of February 2019** and the deadline was on **Friday 15th of March 2019**.
+The project started on **Monday 25th of February 2019** and the deadline was for **Friday 15th of March 2019**.
 
 ## Technologies covered by the exercise
 
