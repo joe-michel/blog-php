@@ -197,5 +197,5 @@ $app->post('/confirm-users',function(ServerRequestInterface $request,ResponseInt
   $all_article_view = $this->all_articles;
   // session_start();
   return $this->view->render($response, 'dashboard.twig', ['curl_result' => $_SESSION, 'user_view' => $user_view, 'display_all_article' => $all_article_view, 'page_name' => 'dashboard']);
-});
+})->setname('confirm-users');
 //end function to toggle user status user/author
