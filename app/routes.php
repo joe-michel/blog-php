@@ -19,7 +19,15 @@ $app->get('/',function(ServerRequestInterface $request,ResponseInterface $respon
   return $this->view->render($response, 'articles.twig', ['display_article' => $article_view, 'display_comments' => $comments_view, 'display_author' => $authors_view]);
 });
 
+
+//We make the login page with a method post
+$app->get('/login',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
+  return $this->view->render($response, 'login.twig');
+})->setName('login');
+//Here we compare to see if the is registered in our db
+
 $app->post('/log', function(ServerRequestInterface $request,ResponseInterface $response, $args) {
+//Login
   $password = $request->getParam('password');
   $username = $request->getParam('username');
 
@@ -42,7 +50,10 @@ $app->post('/log', function(ServerRequestInterface $request,ResponseInterface $r
     }
 })->setName('log');
 
-
+//we initiate our signup page
+$app->get('/signup',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
+  return $this->view->render($response, 'signup.twig');
+})->setName('signup');
 
 // Post method for signup and insertion into the DB with password hash
 $app->post('/signup',function(ServerRequestInterface $request,ResponseInterface $response,$args) {
