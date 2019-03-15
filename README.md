@@ -86,6 +86,16 @@ According to your rights, you will be able to use some features:
 
 ├── composer.lock
 
+├── composer.phar
+
+├── deploy.sh
+
+├── index.php
+
+├── installer
+
+├── package-lock.json
+
 └── README.md
 
 
