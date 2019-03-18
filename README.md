@@ -53,7 +53,10 @@ Moreover, you can also change the right for existing users, so a user can become
 
 ## Deploying the application (Back-end part)
 
-[to complete]
+- First connect to your server with your username.
+- Then clone the repo [here](https://github.com/Raigyo/blog-php/)
+- Finaly go on the internet and open the website (the adress should be **serverName.local/~username**).
+- The server will look by default for the **index.php** within  the **public_html** folder 
 
 ### Architecture of the website
 
