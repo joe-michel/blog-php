@@ -31,4 +31,4 @@ ps -e | less
 # -e file is true if a specific file/directory exists
 # -z string is true if  the given string is empty
 # string1 = string2 is true if specific the two string are equals
-# faire attention à la ~ dans routes.php lors du déploiement
+# faire attention à la ~ dans routes.php lors du deploiement
